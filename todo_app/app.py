@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from todo_app.flask_config import Config
 
@@ -7,8 +7,8 @@ app.config.from_object(Config)
 
 
 @app.route('/')
-def index():
-    return 'Hello World!'
+def index(name=None):
+    return render_template("index.html",name=name)
 
 
 if __name__ == '__main__':
