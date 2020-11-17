@@ -12,7 +12,7 @@
       <h2>Items</h2>
       <form action="" method="POST" class="form-example">
         <div class="form-group">
-          <label for="title">Title</label>
+          <label for="title">New Tasks</label>
            <input type="text" name="title" id="title" required>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
@@ -20,6 +20,9 @@
       <ul class="list-group mb-4">
         {% for item in items %}
           <li>{{item.title}}</li>
+          <div class="form-check">
+            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+          </div>
         {% endfor %}
       </ul>
     </div>
