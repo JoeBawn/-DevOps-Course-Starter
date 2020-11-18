@@ -7,24 +7,24 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
+  <div class="container">
+      <h2>To-Do List</h2>
+      <hr>
       <form action="" method="POST" class="form-example">
         <div class="form-group">
-          <label for="title">New Tasks</label>
-           <input type="text" name="title" id="title" required>
+           <input type="text" class="form-control" ng-model="todoInput" size="40" placeholder="Type new to-do">
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <input type="submit" value="Add to-do" class="btn btn-success">
       </form>
-      <ul class="list-group mb-4">
+      <hr>
+      <dl class="list-group mb-4">
         {% for item in items %}
           <li>{{item.title}}</li>
           <div class="form-check">
             <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
           </div>
         {% endfor %}
-      </ul>
+      </dl>
     </div>
   </div>
 {% endblock %}
