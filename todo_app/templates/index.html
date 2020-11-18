@@ -17,14 +17,15 @@
         <input type="submit" value="Add to-do" class="btn btn-success">
       </form>
       <hr>
-      <dl class="list-group mb-4">
+      <ul class="list-group mb-4">
         {% for item in items %}
-          <li>{{item.title}}</li>
-          <div class="form-check">
-            <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-          </div>
-        {% endfor %}
-      </dl>
+      <li class="list-group-item">{{item.title}} 
+      <div class="form-check">
+                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+              </div>
+            {% endfor %}
+      </li>
+    </ul>
     </div>
   </div>
 {% endblock %}
