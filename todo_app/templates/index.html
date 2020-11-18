@@ -3,7 +3,8 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
+    <h1 class="display-4">JB's</h1>
+    <h2 class="display-5">To-Do App</h2>
     <p class="lead">Just another to-do app.</p>
   </div>
 
@@ -12,20 +13,39 @@
       <hr>
       <form action="" method="POST" class="form-example">
         <div class="form-group">
-           <input type="text" class="form-control" ng-model="todoInput" size="40" placeholder="Type new to-do">
+           <input type="text" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
         </div>
-        <input type="submit" value="Add to-do" class="btn btn-success">
+        <input type="submit" value="Add" class="btn btn-success">
       </form>
-      <hr>
-      <ul class="list-group mb-4">
-        {% for item in items %}
-      <li class="list-group-item">{{item.title}} 
-      <div class="form-check">
-                <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-              </div>
-            {% endfor %}
-      </li>
-    </ul>
+      <table class="table">
+        <ul class="list-group mb-4">
+          <thead>
+            <tr>
+              <th scope="col">Task Lists</th>
+              <th scope="col">Status</th>
+              <th scope="col">Completed</th>
+            </tr>
+          {% for item in items %}
+          </thead>
+          <tbody>
+            <tr>
+                    <td><li class="list-group-item">{{item.title}}</td>
+                    <td><select class="custom-select">
+                      <option selected>Not Started</option>
+                      <option value="1">In Progress</option>
+
+                    </select>
+                    <td><li class="list-group-item"><input type="checkbox" name="complete" />&nbsp;
+                    </td>
+                    <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
+                      <input type="hidden" name="remove_id" value="{{ item.id }}">
+                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-danger" style="margin-top:10px">Remove</button></a>
+                      </form></td>
+            </tr>
+          {% endfor %}
+              </li>
+              </ul>
+          </tbody>        
     </div>
   </div>
 {% endblock %}
