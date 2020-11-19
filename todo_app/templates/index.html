@@ -23,25 +23,24 @@
             <tr>
               <th scope="col">Task Lists</th>
               <th scope="col">Status</th>
-              <th scope="col">Completed</th>
-            </tr>
+              <th scope="col">Complete</th>
+              <th scope="col">Remove</th>
+              </tr>
           {% for item in items %}
           </thead>
           <tbody>
             <tr>
                     <td><li class="list-group-item">{{item.title}}</td>
-                    <td><select class="custom-select">
-                      <option selected>Not Started</option>
-                      <option value="1">In Progress</option>
-
-                    </select>
-                    <td><li class="list-group-item"><input type="checkbox" name="complete" />&nbsp;
-                    </td>
+                    <td><li class="list-group-item">{{ item.status }}</td>
+                    <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
+                      <input type="hidden" name="toggle_item_id" value="{{ item.id }}">
+                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-success" style="margin-top:5px">Completed</button></a>
+                      </form></td>
                     <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                       <input type="hidden" name="remove_id" value="{{ item.id }}">
-                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-danger" style="margin-top:10px">Remove</button></a>
+                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-danger" style="margin-top:5px">Remove</button></a>
                       </form></td>
-            </tr>
+                      </tr>
           </li>
           {% endfor %}
               </ul>
