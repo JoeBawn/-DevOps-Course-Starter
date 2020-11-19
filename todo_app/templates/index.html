@@ -34,11 +34,11 @@
                     <td><li class="list-group-item">{{ item.status }}</td>
                     <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
                       <input type="hidden" name="toggle_item_id" value="{{ item.id }}">
-                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-success" style="margin-top:5px">Completed</button></a>
+                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Completed</button></a>
                       </form></td>
                     <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                       <input type="hidden" name="remove_id" value="{{ item.id }}">
-                      <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-danger" style="margin-top:5px">Remove</button></a>
+                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button></a>
                       </form></td>
                       </tr>
           </li>
