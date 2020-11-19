@@ -5,7 +5,7 @@
   <div class="jumbotron">
     <h1 class="display-4">JB's</h1>
     <h2 class="display-5">To-Do App</h2>
-    <p class="lead">Just another to-do app.</p>
+    <p class="lead">Just another to-do app!</p>
   </div>
 
   <div class="container">
@@ -13,7 +13,7 @@
       <hr>
       <form action="" method="POST" class="form-example">
         <div class="form-group">
-           <input type="text" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
+           <input type="text" name="title" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
         </div>
         <input type="submit" value="Add" class="btn btn-success">
       </form>
@@ -42,8 +42,8 @@
                       <a href="#" onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-danger" style="margin-top:10px">Remove</button></a>
                       </form></td>
             </tr>
+          </li>
           {% endfor %}
-              </li>
               </ul>
           </tbody>        
     </div>
