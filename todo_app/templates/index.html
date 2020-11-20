@@ -23,9 +23,9 @@
             <tr>
               <th scope="col">Task Lists</th>
               {% if request.values.get('sort') == None %}
-              <th scope="col"><a href="/?sort=2" class="table">Status</a></th>
+              <th  scope="col"><a href="/?sort=2" class="table">Status</a></th>
               {% elif request.values.get('sort') == '2' %}
-              <th scope="col"><a href="/?sort=1" class="table">Status</a></th>
+              <th scope="col"><a href="/?sort=1" class="table">Status ↕</a></th>
               {% elif request.values.get('sort') == '1' %}
               <th scope="col"><a href="/?sort=2" class="table">Status</a></th>
               {% endif %}
