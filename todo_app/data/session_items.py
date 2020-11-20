@@ -81,5 +81,6 @@ def remove_item(id):
             break
 
     session['items'] = existing_items
+   
 
     return

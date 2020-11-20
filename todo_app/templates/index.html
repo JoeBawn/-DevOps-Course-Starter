@@ -22,9 +22,13 @@
           <thead>
             <tr>
               <th scope="col">Task Lists</th>
-              <th scope="col">Status</th>
-              <th scope="col">Complete</th>
-              <th scope="col">Remove</th>
+              {% if request.values.get('sort') == None %}
+              <th scope="col"><a href="/?sort=2" class="table">Status</a></th>
+              {% elif request.values.get('sort') == '2' %}
+              <th scope="col"><a href="/?sort=1" class="table">Status</a></th>
+              {% elif request.values.get('sort') == '1' %}
+              <th scope="col"><a href="/?sort=2" class="table">Status</a></th>
+              {% endif %}
               </tr>
           {% for item in items %}
           </thead>
