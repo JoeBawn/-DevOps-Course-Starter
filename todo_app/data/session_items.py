@@ -75,9 +75,9 @@ def remove_item(id):
         item: The item to save.
     """
     existing_items = get_items()
-    for i in range(len(existing_items)):
-        if existing_items[i]['id'] == int(id):
-            del existing_items[i]
+    for i in existing_items:
+        if i['id'] == int(id):
+            existing_items.remove(i)
             break
 
     session['items'] = existing_items
