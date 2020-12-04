@@ -23,11 +23,11 @@
             <tr>
               <th scope="col">Task Lists</th>
               {% if request.values.get('sort') == None %}
-              <th  scope="col"><a href="/?sort=2" class="table">Status</a></th>
+              <th  scope="col"><a href="/?sort=2" class="table">Status ↕ </a></th>
               {% elif request.values.get('sort') == '2' %}
-              <th scope="col"><a href="/?sort=1" class="table">Status ↕</a></th>
+              <th scope="col"><a href="/?sort=1" class="table">Status ↓</a></th>
               {% elif request.values.get('sort') == '1' %}
-              <th scope="col"><a href="/?sort=2" class="table">Status</a></th>
+              <th scope="col"><a href="/?sort=2" class="table">Status ↑</a></th>
               {% endif %}
               </tr>
           {% for item in items %}
@@ -37,12 +37,12 @@
                     <td><li class="list-group-item">{{item.title}}</td>
                     <td><li class="list-group-item">{{ item.status }}</td>
                     <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
-                      <input type="hidden" name="toggle_item_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Completed</button></a>
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Completed</button>
                       </form></td>
                     <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                       <input type="hidden" name="remove_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button ng-click="remove_item()" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button></a>
+                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
                       </form></td>
                       </tr>
           </li>

@@ -15,14 +15,12 @@ def index():
         items = sorted(items, key=itemgetter('status'))
     elif request.values.get('sort') == '2':
         items = sorted(items, key=itemgetter('status'), reverse=True)
-    else:
-        items = sorted(items, key=itemgetter('id'))
     return render_template("index.html",items=items)
 
 @app.route('/', methods=['POST'])
 def add_list():
-    newitemtitle = request.form.get('title')
-    add_item(newitemtitle)
+    new_item_title = request.form.get('title')
+    add_item(new_item_title)
     return redirect(('/'))
 
 @app.route('/remove_item', methods=['POST'])
@@ -33,7 +31,7 @@ def remove_existing_item():
 
 @app.route('/toggle_status', methods=['POST'])
 def toggle_status():
-    toggle_item = get_item(request.form.get('toggle_item_id'))
+    toggle_item = get_item(request.form.get('item_id'))
 
     if toggle_item['status'] == "Not Started":
         toggle_item['status'] = "Completed"
