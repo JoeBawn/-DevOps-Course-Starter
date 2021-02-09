@@ -24,7 +24,7 @@ def index():
         items.sort(key=lambda x: x.idList)
     elif request.values.get('sort') == '2':
         items.sort(key=lambda x: x.idList, reverse=True)
-    return render_template("index.html",items=items,lists=all_lists)
+    return render_template("index.html",items=items,lists=all_lists)#
 
 @app.route('/new_item', methods=['POST'])
 def new_item():
@@ -54,8 +54,27 @@ def remove_existing_item():
     return redirect(request.headers.get('Referer'))
 
 
-@app.route('/toggle_status', methods=['POST'])
-def toggle_status():
+@app.route('/in_progress', methods=['POST'])
+def in_progress():
+    trello_list_id = {}
+    trello_list_id['To Do'] = get_trello_list_id('To Do')
+    trello_list_id['In Progress'] = get_trello_list_id('In Progress')
+    trello_list_id['Completed'] =get_trello_list_id('Completed')
+    
+    allcards = get_trello_cards()
+    all_lists = get_trello_lists_on_board()
+    
+    toggle_item = request.form.get('item_id')
+
+    for card in allcards:
+        if card.id == toggle_item:
+            new_list_id = trello_list_id['In Progress']
+            move_trello_card(card.id, new_list_id)
+    
+    return redirect(request.headers.get('Referer'))
+
+@app.route('/completed', methods=['POST'])
+def completed():
     trello_list_id = {}
     trello_list_id['To Do'] = get_trello_list_id('To Do')
     trello_list_id['In Progress'] = get_trello_list_id('In Progress')
@@ -69,9 +88,6 @@ def toggle_status():
     for card in allcards:
         if card.id == toggle_item:
             new_list_id = trello_list_id['Completed']
-            move_trello_card(card.id, new_list_id)
-        elif card.id == toggle_item:
-            new_list_id = trello_list_id['In Progress']
             move_trello_card(card.id, new_list_id)
     
     return redirect(request.headers.get('Referer'))

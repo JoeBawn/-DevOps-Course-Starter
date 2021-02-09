@@ -40,11 +40,11 @@
                       {{list.name}}
                       {% endif %}
                     {% endfor %}
-                    <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
+                    <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
                       </form></td>
-                    <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
+                    <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>
