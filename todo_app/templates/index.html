@@ -42,15 +42,15 @@
                     {% endfor %}
                     <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                      <a onclick="document.getElementById('in_progress{{ item.id }}').submit()"><button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
                       </form></td>
                     <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                      <a onclick="document.getElementById('completed{{ item.id }}').submit()"><button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>
                     <td><form id="archive_item_{{ item.id }}" action="/archive_item" method="POST">
                       <input type="hidden" name="archive_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('archive_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-danger btn-block" style="margin-top:5px">Archive</button>
+                      <a onclick="document.getElementById('archive_item{{ item.id }}').submit()"><button submit="archive_item" class="btn btn-outline-danger btn-block" style="margin-top:5px">Archive</button>
                       </form></td>
                       </tr>
           </li>

@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect
 from operator import itemgetter
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_items, get_item, add_item, save_item, remove_item
 from todo_app.data.trello_items import get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, TrelloCard, move_trello_card, archive_trello_card
 
 app = Flask(__name__)
