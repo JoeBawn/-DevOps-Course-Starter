@@ -59,3 +59,9 @@ We're going to be using Trello's API to fetch and save to-do tasks. In order to 
 Then generate an API key and token by following the instructions here - https://trello.com/app-key
 Store these credentials in the `.env` file to keep secure. 
 
+## Identify Board ID and list names
+
+You will need to identify the Board ID. See the following url for details on how to find this: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-memberships-get
+
+You will also need to get the lists on the board. See the following url for details on how to find this: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-lists-get
+

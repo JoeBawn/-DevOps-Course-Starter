@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from operator import itemgetter
 
 from todo_app.flask_config import Config
-from todo_app.data.trello_items import get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, TrelloCard, move_trello_card, archive_trello_card
+from todo_app.data.trello_items import get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, TrelloCard, move_trello_card, delete_trello_card
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -34,7 +34,7 @@ def new_item():
     create_trello_card(new_card)
     return redirect(request.headers.get('Referer'))
 
-@app.route('/archive_item', methods=['POST'])
+@app.route('/remove_item', methods=['POST'])
 def remove_existing_item():
     trello_list_id = {}
     trello_list_id['To Do'] = get_trello_list_id('To Do')
@@ -43,12 +43,12 @@ def remove_existing_item():
     allcards = get_trello_cards()
     all_lists = get_trello_lists_on_board()
     
-    toggle_item = request.form.get('archive_id')
+    toggle_item = request.form.get('delete_id')
 
     for card in allcards:
         if card.id == toggle_item:
             
-            archive_trello_card(card.id)
+            delete_trello_card(card.id)
     
     return redirect(request.headers.get('Referer'))
 

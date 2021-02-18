@@ -64,9 +64,9 @@ def create_trello_card(new_card):
     requests.post(f'https://api.trello.com/1/cards/?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}&idList={new_card.idList}&name={new_card.name}')
 
 
-def archive_trello_card(card_id):
+def delete_trello_card(card_id):
     trello_auth_cred = get_trello_credentials()
-    requests.put(f'https://api.trello.com/1/cards/{card_id}?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}&closed=true')
+    requests.delete(f'https://api.trello.com/1/cards/{card_id}?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}&closed=true')
 
  
     
