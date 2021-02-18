@@ -11,9 +11,9 @@
   <div class="container">
       <h2>To-Do List</h2>
       <hr>
-      <form action="" method="POST" class="form-example">
+      <form action="/new_item" method="POST" class="form">
         <div class="form-group">
-           <input type="text" name="title" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
+           <input type="text" name="new_item_title" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
         </div>
         <input type="submit" value="Add" class="btn btn-success">
       </form>
@@ -34,15 +34,23 @@
           </thead>
           <tbody>
             <tr>
-                    <td><li class="list-group-item">{{item.title}}</td>
-                    <td><li class="list-group-item">{{ item.status }}</td>
-                    <td><form id="toggle_item_{{ item.id }}" action="/toggle_status" method="POST">
+                    <td><li class="list-group-item">{{item.name}}</td> 
+                    <td><li class="list-group-item">{% for list in lists %}
+                      {% if item.idList == list.id %}
+                      {{list.name}}
+                      {% endif %}
+                    {% endfor %}
+                    <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-success btn-block" style="margin-top:5px">Completed</button>
+                      <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                      </form></td>
+                    <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>
                     <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
-                      <input type="hidden" name="remove_id" value="{{ item.id }}">
-                      <a onclick="document.getElementById('remove_item_{{ item.id }}').submit()"><button submit="remove_item()" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
+                      <input type="hidden" name="delete_id" value="{{ item.id }}">
+                      <button submit="remove_item" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
                       </form></td>
                       </tr>
           </li>
