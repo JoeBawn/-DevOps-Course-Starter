@@ -7,6 +7,15 @@ from todo_app.data.trello_items import get_trello_credentials, get_trello_board_
 app = Flask(__name__)
 app.config.from_object(Config)
 
+class ViewModel:
+    def __init__(self,items,lists):
+        self.items = items
+        self.lists = lists
+
+    @property
+    def items(self):
+        return self.items
+        return self.lists
 
 @app.route('/')
 def index():
