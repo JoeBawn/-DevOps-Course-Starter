@@ -2,20 +2,12 @@ from flask import Flask, render_template, request, redirect
 from operator import itemgetter
 
 from todo_app.flask_config import Config
-from todo_app.data.trello_items import get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, TrelloCard, move_trello_card, delete_trello_card
+from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-class ViewModel:
-    def __init__(self,items,lists):
-        self.items = items
-        self.lists = lists
 
-    @property
-    def items(self):
-        return self.items
-        return self.lists
 
 @app.route('/')
 def index():
@@ -25,14 +17,18 @@ def index():
     trello_list_id['In Progress'] = get_trello_list_id('In Progress')
     trello_list_id['Completed'] =get_trello_list_id('Completed')
 
-    all_lists = get_trello_lists_on_board()
-
     items = get_trello_cards()
+    lists = get_trello_lists_on_board()
+    todo_list_id = get_trello_list_id('To Do')
+    items_todo = get_trello_card_list(todo_list_id)
+
+    get_view_model = ViewModel(items, lists, items_todo)
+
     if request.values.get('sort') == '1':
         items.sort(key=lambda x: x.idList)
     elif request.values.get('sort') == '2':
         items.sort(key=lambda x: x.idList, reverse=True)
-    return render_template("index.html",items=items,lists=all_lists)#
+    return render_template("index.html",View_Model=get_view_model)
 
 @app.route('/new_item', methods=['POST'])
 def new_item():

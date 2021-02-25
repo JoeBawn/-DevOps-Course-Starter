@@ -30,12 +30,12 @@
               <th scope="col"><a href="/?sort=2" class="table">Status ↑</a></th>
               {% endif %}
               </tr>
-          {% for item in items %}
           </thead>
           <tbody>
+            {% for item in View_Model.items %}
             <tr>
                     <td><li class="list-group-item">{{item.name}}</td> 
-                    <td><li class="list-group-item">{% for list in lists %}
+                    <td><li class="list-group-item">{% for list in View_Model.lists %}
                       {% if item.idList == list.id %}
                       {{list.name}}
                       {% endif %}
@@ -55,7 +55,32 @@
                       </tr>
           </li>
           {% endfor %}
+        </table>
               </ul>
+              <h4>To Do Items</h2>
+              <table class="table">
+                <table class="table">
+                  <ul class="list-group mb-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">Task Lists</th>
+                        {% if request.values.get('sort') == None %}
+                        <th  scope="col"><a href="/?sort=2" class="table">Status ↕ </a></th>
+                        {% elif request.values.get('sort') == '2' %}
+                        <th scope="col"><a href="/?sort=1" class="table">Status ↓</a></th>
+                        {% elif request.values.get('sort') == '1' %}
+                        <th scope="col"><a href="/?sort=2" class="table">Status ↑</a></th>
+                        {% endif %}
+                        </tr>
+
+                      {% for item in View_Model.items_todo %}
+                      <tr>
+                        <td><li class="list-group-item">{{item.name}}</td> 
+                        {% endfor %}
+                          </tr>
+                    </li>
+                        </ul>
+              </table>
           </tbody>        
     </div>
   </div>

@@ -7,6 +7,27 @@ class TrelloCard:
         self.name = name
         self.idList = idList
 
+class ViewModel:
+    def __init__(self, items, lists, items_todo):
+        self._items = items
+        self._lists = lists
+
+    @property
+    def items(self):
+        return self._items
+
+    @property
+    def lists(self):
+        return self._lists
+
+    """@property
+    def items_todo(self):
+        items = []
+        for item in self._items:
+            if item['idList'] == self.trello_list_id['To Do']:
+                items.append(item)
+        return items"""
+
 def get_trello_credentials():
     auth_cred = []
     auth_cred.append(os.getenv('TRELLO_API_KEY'))
@@ -45,6 +66,22 @@ def get_trello_cards():
     trello_auth_cred = get_trello_credentials()
     trello_board_id = get_trello_board_id()
     response = requests.get(f'https://api.trello.com/1/boards/{trello_board_id}/cards?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
+
+    card_list = []
+    for card in response.json():
+        existing_card = TrelloCard(card['id'], card['name'], card['idList'])
+
+        card_list.append(existing_card)
+
+    return card_list
+
+def get_trello_card_list(listid):
+    trello_auth_cred = get_trello_credentials()
+    lists = get_trello_lists_on_board()
+    for _list in lists:
+        if _list['id'] == listid:
+            required_list_id = _list['id']
+    response = requests.get(f'https://api.trello.com/1/lists/{required_list_id}/cards?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
 
     card_list = []
     for card in response.json():
