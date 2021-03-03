@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
+import pytest, datetime
 
 from todo_app.flask_config import Config
 from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list
@@ -12,30 +13,36 @@ app.config.from_object(Config)
 @app.route('/')
 def index():
 
-    trello_list_id = {}
+    """trello_list_id = {}
     trello_list_id['To Do'] = get_trello_list_id('To Do')
     trello_list_id['In Progress'] = get_trello_list_id('In Progress')
-    trello_list_id['Completed'] =get_trello_list_id('Completed')
+    trello_list_id['Completed'] =get_trello_list_id('Completed')"""
 
     items = get_trello_cards()
-    lists = get_trello_lists_on_board()
-    todo_list_id = get_trello_list_id('To Do')
-    items_todo = get_trello_card_list(todo_list_id)
+    lists = {'ToDo':get_trello_list_id('To Do'),'InProgress':get_trello_list_id('In Progress'),'Completed':get_trello_list_id('Completed')}
 
-    get_view_model = ViewModel(items, lists, items_todo)
+    get_view_model = ViewModel(items, lists)
+
+    todays_date = datetime.datetime.strftime(datetime.date.today(), '%d/%m/%Y')
 
     if request.values.get('sort') == '1':
         items.sort(key=lambda x: x.idList)
     elif request.values.get('sort') == '2':
         items.sort(key=lambda x: x.idList, reverse=True)
-    return render_template("index.html",View_Model=get_view_model)
+    return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
 
 @app.route('/new_item', methods=['POST'])
 def new_item():
     new_item_title = request.form.get('new_item_title')
     trello_default_list = get_trello_list_id('To Do')
+    if request.form.get('new_item_due'):
+        due_date = datetime.datetime.strptime(request.form.get('new_item_due'), '%Y-%m-%d')
+    else:
+        due_date = datetime.date.today() + datetime.timedelta(30)
     
-    new_card = TrelloCard(0, new_item_title, trello_default_list)
+    description = request.form.get('new_item_description')
+    
+    new_card = TrelloCard(0, new_item_title, trello_default_list, due_date, description, datetime.datetime.today())
     create_trello_card(new_card)
     return redirect(request.headers.get('Referer'))
 
