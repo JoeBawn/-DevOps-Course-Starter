@@ -16,6 +16,11 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
+### Pytest intsallation (Powershell)
+```powershell
+pip install pytest
+```
+
 ## Dependencies
 
 The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
@@ -65,3 +70,11 @@ You will need to identify the Board ID. See the following url for details on how
 
 You will also need to get the lists on the board. See the following url for details on how to find this: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-lists-get
 
+## Testing
+
+### Unit Tests
+
+In order to run the unit tests, you will first need to ensure you have installed Pytest (as above). You can find the suite of tests within todo_app/test_items.py
+Further details of the pytest dependency can be found here: https://pypi.org/project/pytest/
+
+The test_items.py file contains a card_list (list) contating several TrelloCard (objects) and trello_list_ids (dictionary) with an ID of each list used with the app for todo, inprogress and completed lists. 
