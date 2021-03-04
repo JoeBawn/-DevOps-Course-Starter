@@ -28,7 +28,13 @@
                       <tr>
                         <th scope="col">Task Lists</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Due Date</th>
+                        {% if request.values.get('sort') == None %}
+                        <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                        {% elif request.values.get('sort') == '2' %}
+                        <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                        {% elif request.values.get('sort') == '1' %}
+                        <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                        {% endif %}
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -72,11 +78,17 @@
                 <thead>
                   <tr>
                     <th scope="col">Task Lists</th>
-                <th scope="col">Description</th>
-                <th scope="col">Due Date</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                    <th scope="col">Description</th>
+                    {% if request.values.get('sort') == None %}
+                    <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                    {% elif request.values.get('sort') == '2' %}
+                    <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                    {% elif request.values.get('sort') == '1' %}
+                    <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                   {% for item in View_Model.items_inprogress %}
                   <tr>
                     <td><li class="list-group-item">{{item.name}}</td>
@@ -122,7 +134,13 @@
               <tr>
                 <th scope="col">Task Lists</th>
                 <th scope="col">Description</th>
-                <th scope="col">Due Date</th>
+                {% if request.values.get('sort') == None %}
+                <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                {% elif request.values.get('sort') == '2' %}
+                <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                {% elif request.values.get('sort') == '1' %}
+                <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                {% endif %}
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>

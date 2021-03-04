@@ -26,9 +26,9 @@ def index():
     todays_date = datetime.datetime.strftime(datetime.date.today(), '%d/%m/%Y')
 
     if request.values.get('sort') == '1':
-        items.sort(key=lambda x: x.idList)
+        items.sort(key=lambda x: x.due_date)
     elif request.values.get('sort') == '2':
-        items.sort(key=lambda x: x.idList, reverse=True)
+        items.sort(key=lambda x: x.due_date, reverse=True)
     return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
 
 @app.route('/new_item', methods=['POST'])
