@@ -16,7 +16,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-### Pytest intsallation (Powershell)
+### Pytest installation (Powershell)
 ```powershell
 pip install pytest
 ```
