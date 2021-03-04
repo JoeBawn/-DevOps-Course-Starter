@@ -63,7 +63,7 @@ class ViewModel:
     def recent_completed_items(self):
         items = []
         for item in self._items:
-            if item.idList == self.trello_list_ids['Completed'] and item.modified == datetime.date.today():
+            if item.idList == self.lists['Completed'] and item.modified == datetime.date.today():
                 items.append(item)
         return items
 
@@ -71,7 +71,7 @@ class ViewModel:
     def older_completed_items(self):
         items = []
         for item in self._items:
-            if item.idList == self.trello_list_ids['Completed'] and item.modified != datetime.date.today():
+            if item.idList == self.lists['Completed'] and item.modified != datetime.date.today():
                 items.append(item)
         return items
 
