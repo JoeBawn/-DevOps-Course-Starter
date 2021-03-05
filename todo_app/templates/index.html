@@ -123,9 +123,9 @@
         </table>
       </ul>
       <h1 class="display-4">Completed</h1>
-      {% if View_Model.items_completed|length >= 5 %}
+              {% if View_Model.items_completed|length >= 5 %}
       <br />
-      <div><button class="btn btn-outline-info btn-sm" type="button" data-toggle="collapse" data-target="#completedOlder" aria-controls="completedOlder">Show/Hide Completed Tasks</button></div>
+      <div><button class="btn btn-outline-info btn-sm" type="button" data-toggle="collapse" data-target="#completedOld" aria-controls="completedOld">Show/Hide Completed Tasks</button></div>
       {% endif %}
       <table class="table">
         <table class="table">
@@ -151,7 +151,7 @@
                 {% if item.get_modified_user_date() == todays_date %}
                 <tr scope="row" class="collapse show" id="completedToday">
                 {% else %}
-                <tr scope="row" class="collapse" id="completedOlder">
+                <tr scope="row" class="collapse" id="completedOld">
                 {% endif %}
               {% else %}
                 <tr scope="row">

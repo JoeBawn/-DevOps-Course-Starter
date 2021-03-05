@@ -113,7 +113,7 @@ def get_trello_cards():
     trello_auth_cred = get_trello_credentials()
     trello_board_id = get_trello_board_id()
     response = requests.get(f'https://api.trello.com/1/boards/{trello_board_id}/cards?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
-
+    
     card_list = []
     for card in response.json():
         if card['due'] == None:
