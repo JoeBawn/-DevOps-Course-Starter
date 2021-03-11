@@ -25,7 +25,7 @@ def test_index_page(mock_get_requests, client):
     assert b'sdhjfaj' in response.data
 
 def mock_trello_request(url):
-    board_id = os.getenv('TRELLO_API_BOARD_ID')
+    trello_board_id = os.getenv('TRELLO_API_BOARD_ID')
     if url.startswith(f'https://api.trello.com/1/boards/{trello_board_id}/lists'):
         response = Mock()
 
@@ -33,29 +33,29 @@ def mock_trello_request(url):
             {
                 "id": "601841a7adc438808cfe44b5",
                 "name": "To Do",
-                "closed": false,
+                "closed": False,
                 "pos": 4096,
-                "softLimit": null,
+                "softLimit": None,
                 "idBoard": "5ff48f05dd6ab805185a793b",
-                "subscribed": false
+                "subscribed": False
             },
             {
                 "id": "5ff48f05dd6ab805185a793d",
                 "name": "In Progress",
-                "closed": false,
+                "closed": False,
                 "pos": 32768,
-                "softLimit": null,
+                "softLimit": None,
                 "idBoard": "5ff48f05dd6ab805185a793b",
-                "subscribed": false
+                "subscribed": False
             },
             {
                 "id": "5ff48f05dd6ab805185a793e",
                 "name": "Completed",
-                "closed": false,
+                "closed": False,
                 "pos": 49152,
-                "softLimit": null,
+                "softLimit": None,
                 "idBoard": "5ff48f05dd6ab805185a793b",
-                "subscribed": false
+                "subscribed": False
             }
         ]
         response.json.return_value = sample_trello_lists_response
@@ -66,24 +66,24 @@ def mock_trello_request(url):
         sample_trello_lists_response = [
                 {
                     "id": "603faf7a380d8722d64ec579",
-                    "checkItemStates": null,
-                    "closed": false,
+                    "checkItemStates": None,
+                    "closed": False,
                     "dateLastActivity": "2021-03-03T15:47:06.248Z",
                     "desc": "New Test",
-                    "descData": null,
-                    "dueReminder": null,
+                    "descData": None,
+                    "dueReminder": None,
                     "idBoard": "5ff48f05dd6ab805185a793b",
                     "idList": "601841a7adc438808cfe44b5",
                     "idMembersVoted": [],
                     "idShort": 28,
-                    "idAttachmentCover": null,
+                    "idAttachmentCover": None,
                     "idLabels": [],
-                    "manualCoverAttachment": false,
+                    "manualCoverAttachment": False,
                     "name": "New Test",
                     "pos": 98304,
                     "shortLink": "NyMaqAAC",
-                    "isTemplate": false,
-                    "cardRole": null,
+                    "isTemplate": False,
+                    "cardRole": None,
                     "badges": {
                         "attachmentsByType": {
                             "trello": {
@@ -91,59 +91,59 @@ def mock_trello_request(url):
                                 "card": 0
                             }
                         },
-                        "location": false,
+                        "location": False,
                         "votes": 0,
-                        "viewingMemberVoted": false,
-                        "subscribed": false,
+                        "viewingMemberVoted": False,
+                        "subscribed": False,
                         "fogbugz": "",
                         "checkItems": 0,
                         "checkItemsChecked": 0,
-                        "checkItemsEarliestDue": null,
+                        "checkItemsEarliestDue": None,
                         "comments": 0,
                         "attachments": 0,
-                        "description": true,
+                        "description": True,
                         "due": "2021-04-02T00:00:00.000Z",
-                        "dueComplete": false,
-                        "start": null
+                        "dueComplete": False,
+                        "start": None
                     },
-                    "dueComplete": false,
+                    "dueComplete": False,
                     "due": "2021-04-02T00:00:00.000Z",
                     "idChecklists": [],
                     "idMembers": [],
                     "labels": [],
                     "shortUrl": "https://trello.com/c/NyMaqAAC",
-                    "start": null,
-                    "subscribed": false,
+                    "start": None,
+                    "subscribed": False,
                     "url": "https://trello.com/c/NyMaqAAC/28-new-test",
                     "cover": {
-                        "idAttachment": null,
-                        "color": null,
-                        "idUploadedBackground": null,
+                        "idAttachment": None,
+                        "color": None,
+                        "idUploadedBackground": None,
                         "size": "normal",
                         "brightness": "light",
-                        "idPlugin": null
+                        "idPlugin": None
                     }
                 },
                 {
                     "id": "6042162ef8aeae6ffa565dc8",
-                    "checkItemStates": null,
-                    "closed": false,
+                    "checkItemStates": None,
+                    "closed": False,
                     "dateLastActivity": "2021-03-05T11:29:50.819Z",
                     "desc": "asfsd",
-                    "descData": null,
-                    "dueReminder": null,
+                    "descData": None,
+                    "dueReminder": None,
                     "idBoard": "5ff48f05dd6ab805185a793b",
                     "idList": "601841a7adc438808cfe44b5",
                     "idMembersVoted": [],
                     "idShort": 35,
-                    "idAttachmentCover": null,
+                    "idAttachmentCover": None,
                     "idLabels": [],
-                    "manualCoverAttachment": false,
+                    "manualCoverAttachment": False,
                     "name": "sdhjfaj",
                     "pos": 114688,
                     "shortLink": "sMVXFy8t",
-                    "isTemplate": false,
-                    "cardRole": null,
+                    "isTemplate": False,
+                    "cardRole": None,
                     "badges": {
                         "attachmentsByType": {
                             "trello": {
@@ -151,37 +151,37 @@ def mock_trello_request(url):
                                 "card": 0
                             }
                         },
-                        "location": false,
+                        "location": False,
                         "votes": 0,
-                        "viewingMemberVoted": false,
-                        "subscribed": false,
+                        "viewingMemberVoted": False,
+                        "subscribed": False,
                         "fogbugz": "",
                         "checkItems": 0,
                         "checkItemsChecked": 0,
-                        "checkItemsEarliestDue": null,
+                        "checkItemsEarliestDue": None,
                         "comments": 0,
                         "attachments": 0,
-                        "description": true,
+                        "description": True,
                         "due": "2021-04-04T00:00:00.000Z",
-                        "dueComplete": false,
-                        "start": null
+                        "dueComplete": False,
+                        "start": None
                     },
-                    "dueComplete": false,
+                    "dueComplete": False,
                     "due": "2021-04-04T00:00:00.000Z",
                     "idChecklists": [],
                     "idMembers": [],
                     "labels": [],
                     "shortUrl": "https://trello.com/c/sMVXFy8t",
-                    "start": null,
-                    "subscribed": false,
+                    "start": None,
+                    "subscribed": False,
                     "url": "https://trello.com/c/sMVXFy8t/35-sdhjfaj",
                     "cover": {
-                        "idAttachment": null,
-                        "color": null,
-                        "idUploadedBackground": null,
+                        "idAttachment": None,
+                        "color": None,
+                        "idUploadedBackground": None,
                         "size": "normal",
                         "brightness": "light",
-                        "idPlugin": null
+                        "idPlugin": None
                     }
                 }
         ]
