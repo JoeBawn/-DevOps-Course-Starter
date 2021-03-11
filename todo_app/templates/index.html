@@ -15,7 +15,7 @@
            <input type="text" name="new_item_title" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
            <input type="text" name="new_item_description" class="form-control" ng-model="todoInput" size="40" placeholder=" + Description">
         </div>
-        <input type="submit" value="Add" class="btn btn-success">
+        <input type="submit" name="new_task_submit" value="Add" class="btn btn-success">
       </form>
       <br />
         </table>
@@ -43,7 +43,7 @@
                         <td><li class="list-group-item">{{item.name}}</td>
                           <td><li class="list-group-item">{{item.description}}</td>  
                           <td><li class="list-group-item">{{item.get_user_date()}}</td>  
-                          <td id="Todo_{{ item.id }}"></td> 
+                          <td id=Todo_{{ item.id }}"></td> 
                     <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>

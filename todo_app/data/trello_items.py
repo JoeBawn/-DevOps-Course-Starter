@@ -164,7 +164,7 @@ def create_trello_board(board_name):
 
 def delete_trello_board(board_id):
     trello_auth_cred = get_trello_credentials()
-    requests.delete(f'https://api.trello.com/1/boards/{trello_board_id}/?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
+    requests.delete(f'https://api.trello.com/1/boards/{board_id}/?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
  
     
 

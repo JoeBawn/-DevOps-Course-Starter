@@ -31,22 +31,17 @@ def driver():
 def test_task_journey(driver, app_with_temp_board):
     # msedgedriver.exe is downloaded and placed in the browser directory
     driver.get('http://127.0.0.1:5000')
-    assert driver.title == 'To-Do App'
     
+    assert driver.title == 'To-Do App'
     driver.find_element_by_name("new_item_title").send_keys('Test Name')
-    driver.find_element_by_name("new_item_desc").send_keys('Test Description')
-    driver.find_element_by_name("submit").click()
+    driver.find_element_by_name("new_item_description").send_keys('Test Description')
+    driver.find_element_by_name("new_task_submit").click()
 
     assert driver.find_element_by_xpath("//*[starts-with(@id, 'Todo')]")
-    
-    select = Select(driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]"))
-    select.select_by_index(2)
+    driver.find_element_by_xpath("//*[starts-with(@action, '/in_progress')]")
     driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]").submit()
     
     assert driver.find_element_by_xpath("//*[starts-with(@id, 'InProgress')]")
-
-    select = Select(driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]"))
-    select.select_by_index(3)
+    driver.find_element_by_xpath("//*[starts-with(@action, '/completed')]")
     driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]").submit()
-    
-    assert driver.find_element_by_xpath("//*[starts-with(@id, 'Completed')]")
+ 
