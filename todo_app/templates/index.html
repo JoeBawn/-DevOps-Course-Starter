@@ -43,13 +43,7 @@
                         <td><li class="list-group-item">{{item.name}}</td>
                           <td><li class="list-group-item">{{item.description}}</td>  
                           <td><li class="list-group-item">{{item.get_user_date()}}</td>  
-                            {% if View_Model.items.todo == item.idList %}
-                            <td>To Do</td>
-                            {% elif View_Model.items.inprogress == item.idList %}
-                            <td>In Progress</td>
-                            {% elif View_Model.items.completed == item.idList %}
-                            <td>Completed</td>
-                            {% endif %}
+                          <td id="Todo_{{ item.id }}"></td> 
                     <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
@@ -94,13 +88,7 @@
                     <td><li class="list-group-item">{{item.name}}</td>
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
-                        {% if View_Model.items.todo == item.idList %}
-                        <td>To Do</td>
-                        {% elif View_Model.items.inprogress == item.idList %}
-                        <td>In Progress</td>
-                        {% elif View_Model.items.completed == item.idList %}
-                        <td>Completed</td>
-                        {% endif %}
+                      <td id="InProgress_{{ item.id }}"></td> 
                 <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
@@ -158,13 +146,7 @@
                     <td><li class="list-group-item">{{item.name}}</td>
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
-                        {% if View_Model.items.todo == item.idList %}
-                        <td>To Do</td>
-                        {% elif View_Model.items.inprogress == item.idList %}
-                        <td>In Progress</td>
-                        {% elif View_Model.items.completed == item.idList %}
-                        <td>Completed</td>
-                        {% endif %}
+                      <td id="Completed_{{ item.id }}"></td> 
                 <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
