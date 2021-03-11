@@ -156,6 +156,15 @@ def delete_trello_card(card_id):
     trello_auth_cred = get_trello_credentials()
     requests.delete(f'https://api.trello.com/1/cards/{card_id}?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}&closed=true')
 
+def create_trello_board(board_name):
+    trello_auth_cred = get_trello_credentials()
+    response = requests.post(f'https://api.trello.com/1/boards/?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}&name={board_name}')
+    new_board = response.json()
+    return new_board['id']
+
+def delete_trello_board(board_id):
+    trello_auth_cred = get_trello_credentials()
+    requests.delete(f'https://api.trello.com/1/boards/{trello_board_id}/?key={trello_auth_cred[0]}&token={trello_auth_cred[1]}')
  
     
 
