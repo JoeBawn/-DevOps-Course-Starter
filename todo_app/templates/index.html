@@ -3,16 +3,173 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <h1 class="display-4">JB's</h1>
+    <h2 class="display-5">To-Do App</h2>
+    <p class="lead">Just another to-do app!</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+  <div class="container">
+      <hr>
+      <form action="/new_item" method="POST" class="form">
+        <div class="input-group mb-3">
+           <input type="text" name="new_item_title" class="form-control" ng-model="todoInput" size="40" placeholder="What do you need to do today?">
+           <input type="text" name="new_item_description" class="form-control" ng-model="todoInput" size="40" placeholder=" + Description">
+        </div>
+        <input type="submit" name="new_task_submit" value="Add" class="btn btn-success">
+      </form>
+      <br />
+        </table>
+              </ul>
+              <h1 class="display-4">To Do</h1>
+              <table class="table">
+                <table class="table">
+                  <ul class="list-group mb-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">Task Lists</th>
+                        <th scope="col">Description</th>
+                        {% if request.values.get('sort') == None %}
+                        <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                        {% elif request.values.get('sort') == '2' %}
+                        <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                        {% elif request.values.get('sort') == '1' %}
+                        <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                        {% endif %}
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      {% for item in View_Model.items_todo %}
+                      <tr>
+                        <td><li class="list-group-item">{{item.name}}</td>
+                          <td><li class="list-group-item">{{item.description}}</td>  
+                          <td><li class="list-group-item">{{item.get_user_date()}}</td>  
+                          <td id=Todo_{{ item.id }}"></td> 
+                    <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                      </form></td>
+                    <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                      </form></td>
+                    <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
+                      <input type="hidden" name="delete_id" value="{{ item.id }}">
+                      <button submit="remove_item" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
+                      </form></td>
+                      </tr>
+          </li>
+                        {% endfor %}
+                          </tr>
+                    </li>
+                        </ul>
+              </table>
+            </table>
+          </ul>
+          <h1 class="display-4">In Progress</h1>
+          <table class="table">
+            <table class="table">
+              <ul class="list-group mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Task Lists</th>
+                    <th scope="col">Description</th>
+                    {% if request.values.get('sort') == None %}
+                    <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                    {% elif request.values.get('sort') == '2' %}
+                    <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                    {% elif request.values.get('sort') == '1' %}
+                    <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  {% for item in View_Model.items_inprogress %}
+                  <tr>
+                    <td><li class="list-group-item">{{item.name}}</td>
+                      <td><li class="list-group-item">{{item.description}}</td>  
+                      <td><li class="list-group-item">{{item.get_user_date() }}</td>  
+                      <td id="InProgress_{{ item.id }}"></td> 
+                <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
+                  <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                  </form></td>
+                <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
+                  <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                  </form></td>
+                <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
+                  <input type="hidden" name="delete_id" value="{{ item.id }}">
+                  <button submit="remove_item" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
+                  </form></td>
+                  </tr>
+      </li>
+                    {% endfor %}
+                      </tr>
+                </li>
+                    </ul>
+          </table>
+        </table>
       </ul>
+      <h1 class="display-4">Completed</h1>
+      {% if View_Model.items_completed|length >= 5 %}
+      <br />
+      <div><button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#completedOlder" aria-controls="completedOlder">Show/Hide Completed Tasks</button></div>
+      {% endif %}
+          <table class="table">
+            <table class="table">
+              <ul class="list-group mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Task Lists</th>
+                    <th scope="col">Description</th>
+                    {% if request.values.get('sort') == None %}
+                    <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                    {% elif request.values.get('sort') == '2' %}
+                    <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                    {% elif request.values.get('sort') == '1' %}
+                    <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  {% for item in View_Model.items_completed %}
+                  <tr>
+                    {% if View_Model.items_completed|length >= 5 %}
+                    {% if item.get_modified_user_date() == todays_date %}
+                    <tr scope="row" class="collapse show" id="completedToday">
+                    {% else %}
+                    <tr scope="row" class="collapse" id="completedOlder">
+                    {% endif %}
+                  {% else %}
+                    <tr scope="row">
+                  {% endif %}
+                    <td><li class="list-group-item">{{item.name}}</td>
+                      <td><li class="list-group-item">{{item.description}}</td>  
+                      <td><li class="list-group-item">{{item.get_user_date() }}</td>  
+                      <td id="Completed_{{ item.id }}"></td> 
+                <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
+                  <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                  </form></td>
+                <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
+                  <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                  </form></td>
+                <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
+                  <input type="hidden" name="delete_id" value="{{ item.id }}">
+                  <button submit="remove_item" class="btn btn-outline-danger btn-block" style="margin-top:5px">Remove</button>
+                  </form></td>
+                  </tr>
+      </li>
+                    {% endfor %}
+                      </tr>
+                </li>
+                    </ul>
+          </table>
+        </table>
+      </ul>
+      </table>
+          </tbody>     
     </div>
   </div>
 {% endblock %}
