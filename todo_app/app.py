@@ -13,11 +13,6 @@ def create_app():
     @app.route('/')
     def index():
 
-        """trello_list_id = {}
-        trello_list_id['To Do'] = get_trello_list_id('To Do')
-        trello_list_id['In Progress'] = get_trello_list_id('In Progress')
-        trello_list_id['Completed'] =get_trello_list_id('Completed')"""
-
         items = get_trello_cards()
         lists = {'ToDo':get_trello_list_id('To Do'),'InProgress':get_trello_list_id('In Progress'),'Completed':get_trello_list_id('Completed')}
 

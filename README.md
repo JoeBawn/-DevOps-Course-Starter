@@ -16,10 +16,6 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-### Pytest installation (Powershell)
-```powershell
-pip install pytest
-```
 
 ## Dependencies
 
@@ -74,7 +70,17 @@ You will also need to get the lists on the board. See the following url for deta
 
 ### Unit Tests
 
-In order to run the unit tests, you will first need to ensure you have installed Pytest (as above). You can find the suite of tests within todo_app/test_items.py
-Further details of the pytest dependency can be found here: https://pypi.org/project/pytest/
+In order to run the unit tests, you will first need to ensure you have installed Pytest. You can find the suite of tests within todo_app/Tests/
+Further details of the Pytest dependency can be found here: https://pypi.org/project/pytest/
 
 The test_items.py file contains a card_list (list) contating several TrelloCard (objects) and trello_list_ids (dictionary) with an ID of each list used with the app for todo, inprogress and completed lists. 
+
+You can run the tests from the directory using poetry run pytest
+
+### E2E Tests
+In order to run the E2E tests, you will first need to ensure you have installed Pytest and Selenium. You can find the suite of tests within todo_app/Selenium Tests/
+Further details of the Pytest dependency can be found here: https://pypi.org/project/pytest/
+Further details of the Selenium dependency can be found here: https://pypi.org/project/selenium/
+As we are using Edge for our Selenium test there is a dependency on the webdriver - msedgedriver.exe This can be downloaded from https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/ ensuring you are running the correct release to your browser. 
+
+You can run the tests from the directory using poetry run pytest
