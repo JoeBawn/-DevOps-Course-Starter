@@ -8,9 +8,10 @@ from selenium.webdriver.support.ui import Select
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
-    board_id = create_trello_board('Test_Board')
     file_path = dotenv.find_dotenv('.env')
-    dotenv.load_dotenv(file_path)
+    dotenv.load_dotenv(file_path, override=True)
+    
+    board_id = create_trello_board('Test_Board')
     os.environ['TRELLO_API_BOARD_ID'] = board_id
 
     application = app.create_app()
