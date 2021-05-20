@@ -44,34 +44,34 @@ class ViewModel:
         return items
 
     @property
-    def items_inprogress(self):
+    def items_doing(self):
         items = []
         for item in self._items:
-            if item.idList == self.lists['InProgress']:
+            if item.idList == self.lists['Doing']:
                 items.append(item)
         return items
 
     @property
-    def items_completed(self):
+    def items_done(self):
         items = []
         for item in self._items:
-            if item.idList == self.lists['Completed']:
+            if item.idList == self.lists['Done']:
                 items.append(item)
         return items
 
     @property
-    def recent_completed_items(self):
+    def recent_done_items(self):
         items = []
         for item in self._items:
-            if item.idList == self.lists['Completed'] and item.modified == datetime.date.today():
+            if item.idList == self.lists['Done'] and item.modified == datetime.date.today():
                 items.append(item)
         return items
 
     @property
-    def older_completed_items(self):
+    def older_done_items(self):
         items = []
         for item in self._items:
-            if item.idList == self.lists['Completed'] and item.modified != datetime.date.today():
+            if item.idList == self.lists['Done'] and item.modified != datetime.date.today():
                 items.append(item)
         return items
 

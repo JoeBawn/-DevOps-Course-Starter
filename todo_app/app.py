@@ -15,7 +15,7 @@ def create_app():
     def index():
 
         items = get_trello_cards()
-        lists = {'ToDo':get_trello_list_id('To Do'),'InProgress':get_trello_list_id('In Progress'),'Completed':get_trello_list_id('Completed')}
+        lists = {'ToDo':get_trello_list_id('To Do'),'Doing':get_trello_list_id('Doing'),'Done':get_trello_list_id('Done')}
 
         get_view_model = ViewModel(items, lists)
 
@@ -46,8 +46,8 @@ def create_app():
     def remove_existing_item():
         trello_list_id = {}
         trello_list_id['To Do'] = get_trello_list_id('To Do')
-        trello_list_id['In Progress'] = get_trello_list_id('In Progress')
-        trello_list_id['Completed'] =get_trello_list_id('Completed')
+        trello_list_id['Doing'] = get_trello_list_id('Doing')
+        trello_list_id['Done'] =get_trello_list_id('Done')
         allcards = get_trello_cards()
         all_lists = get_trello_lists_on_board()
         
@@ -61,12 +61,12 @@ def create_app():
         return redirect(request.headers.get('Referer'))
 
 
-    @app.route('/in_progress', methods=['POST'])
+    @app.route('/Doing', methods=['POST'])
     def in_progress():
         trello_list_id = {}
         trello_list_id['To Do'] = get_trello_list_id('To Do')
-        trello_list_id['In Progress'] = get_trello_list_id('In Progress')
-        trello_list_id['Completed'] =get_trello_list_id('Completed')
+        trello_list_id['Doing'] = get_trello_list_id('Doing')
+        trello_list_id['Done'] =get_trello_list_id('Done')
         
         allcards = get_trello_cards()
         all_lists = get_trello_lists_on_board()
@@ -75,17 +75,17 @@ def create_app():
 
         for card in allcards:
             if card.id == toggle_item:
-                new_list_id = trello_list_id['In Progress']
+                new_list_id = trello_list_id['Doing']
                 move_trello_card(card.id, new_list_id)
         
         return redirect(request.headers.get('Referer'))
 
-    @app.route('/completed', methods=['POST'])
-    def completed():
+    @app.route('/Done', methods=['POST'])
+    def Done():
         trello_list_id = {}
         trello_list_id['To Do'] = get_trello_list_id('To Do')
-        trello_list_id['In Progress'] = get_trello_list_id('In Progress')
-        trello_list_id['Completed'] =get_trello_list_id('Completed')
+        trello_list_id['Doing'] = get_trello_list_id('Doing')
+        trello_list_id['Done'] =get_trello_list_id('Done')
         
         allcards = get_trello_cards()
         all_lists = get_trello_lists_on_board()
@@ -94,7 +94,7 @@ def create_app():
 
         for card in allcards:
             if card.id == toggle_item:
-                new_list_id = trello_list_id['Completed']
+                new_list_id = trello_list_id['Done']
                 move_trello_card(card.id, new_list_id)
         
         return redirect(request.headers.get('Referer'))

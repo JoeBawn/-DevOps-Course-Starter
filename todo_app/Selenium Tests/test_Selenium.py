@@ -39,10 +39,10 @@ def test_task_journey(driver, app_with_temp_board):
     driver.find_element_by_name("new_task_submit").click()
 
     assert driver.find_element_by_xpath("//*[starts-with(@id, 'Todo')]")
-    driver.find_element_by_xpath("//*[starts-with(@action, '/in_progress')]")
+    driver.find_element_by_xpath("//*[starts-with(@action, '/Doing')]")
     driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]").submit()
     
-    assert driver.find_element_by_xpath("//*[starts-with(@id, 'InProgress')]")
-    driver.find_element_by_xpath("//*[starts-with(@action, '/completed')]")
+    assert driver.find_element_by_xpath("//*[starts-with(@id, 'Doing')]")
+    driver.find_element_by_xpath("//*[starts-with(@action, '/Done')]")
     driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]").submit()
  

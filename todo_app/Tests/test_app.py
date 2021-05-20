@@ -41,7 +41,7 @@ def mock_trello_request(url):
             },
             {
                 "id": "5ff48f05dd6ab805185a793d",
-                "name": "In Progress",
+                "name": "Doing",
                 "closed": False,
                 "pos": 32768,
                 "softLimit": None,
@@ -50,7 +50,7 @@ def mock_trello_request(url):
             },
             {
                 "id": "5ff48f05dd6ab805185a793e",
-                "name": "Completed",
+                "name": "Done",
                 "closed": False,
                 "pos": 49152,
                 "softLimit": None,

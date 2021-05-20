@@ -44,13 +44,13 @@
                           <td><li class="list-group-item">{{item.description}}</td>  
                           <td><li class="list-group-item">{{item.get_user_date()}}</td>  
                           <td id=Todo_{{ item.id }}"></td> 
-                    <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                    <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
-                      <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                      <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                       </form></td>
-                    <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                    <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
-                      <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                      <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>
                     <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                       <input type="hidden" name="delete_id" value="{{ item.id }}">
@@ -65,7 +65,7 @@
               </table>
             </table>
           </ul>
-          <h1 class="display-4">In Progress</h1>
+          <h1 class="display-4">Doing</h1>
           <table class="table">
             <table class="table">
               <ul class="list-group mb-4">
@@ -83,19 +83,19 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                  {% for item in View_Model.items_inprogress %}
+                  {% for item in View_Model.items_doing %}
                   <tr>
                     <td><li class="list-group-item">{{item.name}}</td>
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
-                      <td id="InProgress_{{ item.id }}"></td> 
-                <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                      <td id="Doing_{{ item.id }}"></td> 
+                <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
-                  <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                  <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                   </form></td>
-                <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
-                  <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                  <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                   </form></td>
                 <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                   <input type="hidden" name="delete_id" value="{{ item.id }}">
@@ -110,10 +110,10 @@
           </table>
         </table>
       </ul>
-      <h1 class="display-4">Completed</h1>
-      {% if View_Model.items_completed|length >= 5 %}
+      <h1 class="display-4">Done</h1>
+      {% if View_Model.items_done|length >= 5 %}
       <br />
-      <div><button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#completedOlder" aria-controls="completedOlder">Show/Hide Completed Tasks</button></div>
+      <div><button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#doneOlder" aria-controls="doneOlder">Show/Hide Done Tasks</button></div>
       {% endif %}
           <table class="table">
             <table class="table">
@@ -132,13 +132,13 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                  {% for item in View_Model.items_completed %}
+                  {% for item in View_Model.items_done %}
                   <tr>
-                    {% if View_Model.items_completed|length >= 5 %}
+                    {% if View_Model.items_done|length >= 5 %}
                     {% if item.get_modified_user_date() == todays_date %}
-                    <tr scope="row" class="collapse show" id="completedToday">
+                    <tr scope="row" class="collapse show" id="DoneToday">
                     {% else %}
-                    <tr scope="row" class="collapse" id="completedOlder">
+                    <tr scope="row" class="collapse" id="doneOlder">
                     {% endif %}
                   {% else %}
                     <tr scope="row">
@@ -146,14 +146,14 @@
                     <td><li class="list-group-item">{{item.name}}</td>
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
-                      <td id="Completed_{{ item.id }}"></td> 
-                <td><form id="toggle_item_{{ item.id }}" action="/in_progress" method="POST">
+                      <td id="Done_{{ item.id }}"></td> 
+                <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
-                  <button submit="in_progress" class="btn btn-outline-primary btn-block" style="margin-top:5px">In Progress</button>
+                  <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                   </form></td>
-                <td><form id="toggle_item_{{ item.id }}" action="/completed" method="POST">
+                <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
                   <input type="hidden" name="item_id" value="{{ item.id }}">
-                  <button submit="completed" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
+                  <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                   </form></td>
                 <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
                   <input type="hidden" name="delete_id" value="{{ item.id }}">

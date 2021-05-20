@@ -17,7 +17,7 @@ def card_list():
 
 @pytest.fixture
 def trello_list_ids():
-    trello_list_ids = {'ToDo':1001,'InProgress':1002,'Completed':1003}
+    trello_list_ids = {'ToDo':1001,'Doing':1002,'Done':1003}
     return trello_list_ids
 
 class TestTrello:
@@ -34,41 +34,41 @@ class TestTrello:
             assert todo_list_id == i.idList
         
     @staticmethod
-    def test_get_inprogress(card_list,trello_list_ids):        
+    def test_get_doing(card_list,trello_list_ids):        
 
-        todo_list_id = trello_list_ids['InProgress']
+        todo_list_id = trello_list_ids['Doing']
         view_model = ViewModel(card_list, trello_list_ids)
 
-        items_inprogress = view_model.items_inprogress
+        items_doing = view_model.items_doing
 
-        for i in items_inprogress:
+        for i in items_doing:
             assert todo_list_id == i.idList
     
     @staticmethod
-    def test_get_completed(card_list,trello_list_ids):        
+    def test_get_done(card_list,trello_list_ids):        
 
-        todo_list_id = trello_list_ids['Completed']
+        todo_list_id = trello_list_ids['Done']
         view_model = ViewModel(card_list, trello_list_ids)
 
-        items_completed = view_model.items_completed
+        items_done = view_model.items_done
 
-        for i in items_completed:
+        for i in items_done:
             assert todo_list_id == i.idList
 
     @staticmethod
-    def test_recent_completed_items(card_list,trello_list_ids):        
+    def test_recent_done_items(card_list,trello_list_ids):        
 
         view_model = ViewModel(card_list, trello_list_ids)
 
-        recent_completed_items = view_model.recent_completed_items
+        recent_done_items = view_model.recent_done_items
         
-        assert len(recent_completed_items) == 2
+        assert len(recent_done_items) == 2
 
     @staticmethod
-    def test_older_completed_items(card_list,trello_list_ids):        
+    def test_older_done_items(card_list,trello_list_ids):        
 
         view_model = ViewModel(card_list, trello_list_ids)
 
-        older_completed_items = view_model.older_completed_items
+        older_done_items = view_model.older_done_items
 
-        assert len(older_completed_items) == 3
+        assert len(older_done_items) == 3
