@@ -64,15 +64,16 @@ A Docker file has been created with configuration for both Production and Develo
 
 Run the below commands from the root directory to build and launch the app in production mode:
  
+```bash
 $ docker build --tag todo-app:production --target production .
-
 $ docker run -d -p 5000:5000 --env-file .env todo-app:production 
- 
+```
 Run the below commands from the root directory to build and launch in development mode:
- 
-$ docker build --tag todo-app:development --target development .
 
+```bash 
+$ docker build --tag todo-app:development --target development .
 $ docker run -d -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/temp/todo_app todo-app:development
+```
 
 ## Create a Trello account and API key
 
