@@ -1,8 +1,18 @@
-FROM python:3.10.0a7-buster as base
-WORKDIR /todo_app
-COPY poetry.toml pyproject.toml /todo_app
-RUN pip install --no-cache-dir -r requirements.txt
+FROM python:3 as base
 
-COPY . .
+WORKDIR /temp
+COPY ./poetry.toml /temp
+COPY ./pyproject.toml /temp
+RUN pip install poetry && poetry install
 
-CMD [ "python", "./your-daemon-or-script.py" ]
+FROM base as production
+RUN apt-get update
+COPY ./todo_app /temp/todo_app
+EXPOSE 5000
+ENTRYPOINT $(poetry env info --path)/bin/gunicorn --error-logfile /temp/error.log -b 0.0.0.0:5000 "todo_app.app:create_app()"
+
+FROM base as development
+EXPOSE 5000
+ENTRYPOINT  poetry run flask run --host 0.0.0.0
+
+
