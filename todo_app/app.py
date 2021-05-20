@@ -7,6 +7,7 @@ from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credent
 
 def create_app():  
     app = Flask(__name__)
+    
 
     # All the routes and setup code etc
 

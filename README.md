@@ -54,6 +54,23 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+## Running the App in a Container using Docker
+
+A Docker file has been created with configuration for both Production and Development environments. The app can be accessed from a browser at http://127.0.0.1:5000/ for any of the containers that are run
+
+Run the below commands from the root directory to build and launch the app in production mode:
+ 
+```bash
+$ docker build --tag todo-app:production --target production .
+$ docker run -d -p 5000:5000 --env-file .env todo-app:production 
+```
+Run the below commands from the root directory to build and launch in development mode:
+
+```bash 
+$ docker build --tag todo-app:development --target development .
+$ docker run -d -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/temp/todo_app todo-app:development
+```
+
 ## Create a Trello account and API key
 
 We're going to be using Trello's API to fetch and save to-do tasks. In order to call their API, you need to first create an account - https://trello.com/signup
