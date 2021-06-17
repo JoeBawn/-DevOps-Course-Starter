@@ -14,4 +14,5 @@ FROM base as development
 EXPOSE 5000
 ENTRYPOINT  poetry run flask run --host 0.0.0.0
 
-
+FROM base as test 
+RUN pip install poetry && poetry install
