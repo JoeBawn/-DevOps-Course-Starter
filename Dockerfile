@@ -18,3 +18,16 @@ FROM base as test
 RUN pip install poetry && poetry install
 COPY ./todo_app /app/todo_app
 ENTRYPOINT [ "poetry", "run", "pytest" ]
+
+# Install Chrome 
+RUN apt-get update
+RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
+    apt-get install ./chrome.deb -y &&\  
+    rm ./chrome.deb 
+
+# Install Chromium WebDriver 
+RUN apt-get update
+RUN apt-get install -yqq unzip
+RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN unzip /tmp/chromedriver.zip chromedriver -d ./
+ENTRYPOINT [ "poetry", "run", "pytest" ]
