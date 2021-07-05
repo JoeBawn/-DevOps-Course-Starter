@@ -17,7 +17,6 @@ ENTRYPOINT  poetry run flask run --host 0.0.0.0
 FROM base as test 
 RUN pip install poetry && poetry install
 COPY ./todo_app /app/todo_app
-ENTRYPOINT [ "poetry", "run", "pytest" ]
 
 # Install Chrome 
 RUN apt-get update
