@@ -98,6 +98,6 @@ You can run the tests from the directory using poetry run pytest
 In order to run the E2E tests, you will first need to ensure you have installed Pytest and Selenium. You can find the suite of tests within todo_app/Selenium Tests/
 Further details of the Pytest dependency can be found here: https://pypi.org/project/pytest/
 Further details of the Selenium dependency can be found here: https://pypi.org/project/selenium/
-As we are using Edge for our Selenium test there is a dependency on the webdriver - msedgedriver.exe This can be downloaded from https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/ ensuring you are running the correct release to your browser. 
+As we are using Chrome for our Selenium test there is a dependency on the webdriver - chromedriver.exe This can be downloaded from https://sites.google.com/chromium.org/driver/ ensuring you are running the correct release to your browser. 
 
 You can run the tests from the directory using poetry run pytest
