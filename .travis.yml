@@ -15,5 +15,6 @@ script:
 - docker run --env-file .env.test todo-app:test todo_app/Tests/test_app.py
 - docker run --env TRELLO_API_BOARD_ID --env TRELLO_API_TOKEN --env TRELLO_API_KEY  todo-app:test todo_app/Selenium_Tests/test_Selenium.py
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
-
+- docker build --target production --tag $DOCKER_USER/todo-app:latest .
+- docker push $DOCKER_USER/todo-app:latest
 
