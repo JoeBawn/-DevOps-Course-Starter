@@ -22,3 +22,4 @@ script:
 - docker tag $DOCKER_USER/todo-app:latest registry.heroku.com/todoapp-jb/web  
 - docker push registry.heroku.com/todoapp-jb/web
 - heroku container:release web --app todoapp-jb
+
