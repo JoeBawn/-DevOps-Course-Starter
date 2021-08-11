@@ -10,7 +10,7 @@ COPY ./todo_app /app/todo_app
 COPY ./entrypoint.sh /app
 EXPOSE $PORT
 RUN chmod +x ./entrypoint.sh
-ENTRYPOINT poetry run gunicorn --error-logfile /app/error.log -b 0.0.0.0:$PORT "todo_app.app:create_app()"
+ENTRYPOINT ./entrypoint.sh
 
 FROM base as development
 EXPOSE 5000
