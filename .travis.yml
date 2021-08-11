@@ -19,4 +19,6 @@ script:
 - docker build --target production --tag $DOCKER_USER/todo-app:latest .
 - docker push $DOCKER_USER/todo-app:latest
 - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-
+- docker tag $DOCKER_USER/todo-app:latest registry.heroku.com/todoapp-jb/web  
+- docker push registry.heroku.com/todoapp-jb/web
+- heroku container:release web --app todoapp-jb
