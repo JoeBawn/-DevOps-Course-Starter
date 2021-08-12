@@ -30,3 +30,4 @@ deploy:
   script: heroku container:release --app todoapp-jb web 
   on:
     branch: module_8
+    
