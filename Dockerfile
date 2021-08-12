@@ -3,11 +3,12 @@ FROM python:3 as base
 WORKDIR /app
 COPY ./poetry.toml /app
 COPY ./pyproject.toml /app
-RUN pip install poetry && poetry install
+RUN pip install poetry && poetry config virtualenvs.create false --local && poetry install
 
 FROM base as production
 COPY ./todo_app /app/todo_app
 COPY ./entrypoint.sh /app
+ENV PORT=5000
 EXPOSE $PORT
 RUN chmod +x ./entrypoint.sh
 ENTRYPOINT ./entrypoint.sh

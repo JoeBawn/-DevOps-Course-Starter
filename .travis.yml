@@ -16,10 +16,17 @@ script:
 - docker run --env-file .env.test todo-app:test todo_app/Tests/test_app.py
 - docker run --env TRELLO_API_BOARD_ID --env TRELLO_API_TOKEN --env TRELLO_API_KEY  todo-app:test todo_app/Selenium_Tests/test_Selenium.py
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
-- docker build --target production --tag $DOCKER_USER/todo-app:latest .
+
+before_deploy:
+- heroku container:login
+- docker build --target production --tag $DOCKER_USER/todo-app:latest --target production .
 - docker push $DOCKER_USER/todo-app:latest
 - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 - docker tag $DOCKER_USER/todo-app:latest registry.heroku.com/todoapp-jb/web  
 - docker push registry.heroku.com/todoapp-jb/web
-- heroku container:release web --app todoapp-jb
-
+  
+deploy:
+  provider: script
+  script: heroku container:release --app todoapp-jb web 
+  on:
+    branch: module_8
