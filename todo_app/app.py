@@ -34,7 +34,7 @@ def create_app():
         if request.form.get('new_item_due'):
             due_date = datetime.datetime.strptime(request.form.get('new_item_due'), '%Y-%m-%d')
         else:
-            due_date = datetime.date.today() + datetime.timedelta(30)
+            due_date = datetime.datetime.today() + datetime.timedelta(30)
         
         description = request.form.get('new_item_description')
         

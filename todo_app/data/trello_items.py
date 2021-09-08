@@ -22,6 +22,9 @@ class ToDoCard:
     
     def get_modified_user_date(self):
         return datetime.datetime.strftime(self.modified, '%d/%m/%Y')
+    
+    def get_card_as_dictionary(self):
+        return {'name' : self.name, 'idList' : self.idList, 'due_date' : self.due_date, 'description' : self.description, 'modified' : self.modified}
 
 class ViewModel:
     def __init__(self, items, lists):
