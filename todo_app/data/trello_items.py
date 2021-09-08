@@ -106,6 +106,26 @@ def get_todo_cards():
 
         return card_list
 
+def move_todo_card(card_id, new_list_id):
+        db = mongo_db_connection()
+        collection_list = db.list_collection_names()
+
+        for coll in collection_list:
+            collection = db[coll]
+            for card in collection.find({}): 
+                if str(card['_id']) == str(card_id):
+                    new_card = ToDoCard(0, card['name'], new_list_id, card['due_date'], card['description'], datetime.datetime.today())
+                    new_collection = db[new_list_id]
+                    new_collection.insert_one(new_card.get_card_as_dictionary())
+                    result = collection.delete_one({'_id' : card['_id']})
+                    print(result)
+                    break
+
+def create_todo_card(new_card):
+        db = mongo_db_connection()
+        card = new_card.get_card_as_dictionary()
+        db['todo'].insert_one(card)
+
 def get_trello_credentials():
     auth_cred = []
     auth_cred.append(os.getenv('TRELLO_API_KEY'))
