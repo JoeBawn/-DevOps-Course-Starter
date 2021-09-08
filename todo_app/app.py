@@ -3,7 +3,7 @@ from operator import itemgetter
 import pytest, datetime
 
 from todo_app.flask_config import Config
-from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list, get_todo_cards, move_todo_card, create_todo_card
+from todo_app.data.trello_items import ToDoCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list, get_todo_cards, move_todo_card, create_todo_card
 
 def create_app():  
     app = Flask(__name__)
@@ -30,7 +30,7 @@ def create_app():
     @app.route('/new_item', methods=['POST'])
     def new_item():
         new_item_title = request.form.get('new_item_title')
-        trello_default_list = get_trello_list_id('To Do')
+        default_list = 'todo'
         if request.form.get('new_item_due'):
             due_date = datetime.datetime.strptime(request.form.get('new_item_due'), '%Y-%m-%d')
         else:
@@ -38,8 +38,8 @@ def create_app():
         
         description = request.form.get('new_item_description')
         
-        new_card = TrelloCard(0, new_item_title, trello_default_list, due_date, description, datetime.datetime.today())
-        create_trello_card(new_card)
+        new_card = ToDoCard(0, new_item_title, default_list, due_date, description, datetime.datetime.today())
+        create_todo_card(new_card)
         return redirect(request.headers.get('Referer'))
 
     @app.route('/remove_item', methods=['POST'])

@@ -2,7 +2,7 @@ import os
 import requests, datetime, json
 import pymongo
 
-class TrelloCard:
+class ToDoCard:
     def __init__(self, id, name, idList, due_date, description, modified):
         self.id = id
         self.name = name
@@ -77,69 +77,69 @@ class ViewModel:
         return items
 
 def get_mongodb_connection():
-        mongodb_url = os.getenv('MONGO_URL')
-        return mongodb_url
+    mongodb_url = os.getenv('MONGO_URL')
+    return mongodb_url
 
 def get_mongodb_database_name():
-        mongodb_name = os.getenv('MONGO_DB_NAME')
-        return mongodb_name
+    mongodb_name = os.getenv('MONGO_DB_NAME')
+    return mongodb_name
 
 def mongo_db_connection():
-        db_connection = get_mongodb_connection()
-        db_name = get_mongodb_database_name()
+    db_connection = get_mongodb_connection()
+    db_name = get_mongodb_database_name()
 
-        mongo_client = pymongo.MongoClient(db_connection)
-        db = mongo_client[db_name]
+    mongo_client = pymongo.MongoClient(db_connection)
+    db = mongo_client[db_name]
 
-        return db
+    return db
 
 def get_todo_cards():
-        db = mongo_db_connection()
-        collection_list = db.list_collection_names()
+    db = mongo_db_connection()
+    collection_list = db.list_collection_names()
 
-        card_list = []
-        for coll in collection_list:
-            collection = db[coll]
+    card_list = []
+    for coll in collection_list:
+        collection = db[coll]
 
-            for card in collection.find({}):
-                card_list.append(ToDoCard(card['_id'], card['name'], card['idList'], card['due_date'], card['description'], card['modified']))
+        for card in collection.find({}):
+            card_list.append(ToDoCard(card['_id'], card['name'], card['idList'], card['due_date'], card['description'], card['modified']))
 
-        return card_list
+    return card_list
 
 def move_todo_card(card_id, new_list_id):
-        db = mongo_db_connection()
-        collection_list = db.list_collection_names()
+    db = mongo_db_connection()
+    collection_list = db.list_collection_names()
 
-        for coll in collection_list:
-            collection = db[coll]
-            for card in collection.find({}): 
-                if str(card['_id']) == str(card_id):
-                    new_card = ToDoCard(0, card['name'], new_list_id, card['due_date'], card['description'], datetime.datetime.today())
-                    new_collection = db[new_list_id]
-                    new_collection.insert_one(new_card.get_card_as_dictionary())
-                    result = collection.delete_one({'_id' : card['_id']})
-                    print(result)
-                    break
+    for coll in collection_list:
+        collection = db[coll]
+        for card in collection.find({}): 
+            if str(card['_id']) == str(card_id):
+                new_card = ToDoCard(0, card['name'], new_list_id, card['due_date'], card['description'], datetime.datetime.today())
+                new_collection = db[new_list_id]
+                new_collection.insert_one(new_card.get_card_as_dictionary())
+                result = collection.delete_one({'_id' : card['_id']})
+                print(result)
+                break
 
 def create_todo_card(new_card):
-        db = mongo_db_connection()
-        card = new_card.get_card_as_dictionary()
-        db['todo'].insert_one(card)
+    db = mongo_db_connection()
+    card = new_card.get_card_as_dictionary()
+    db['todo'].insert_one(card)
 
 def create_test_db(db_name):
-        db_connection = get_mongodb_connection()
-        mongo_client = pymongo.MongoClient(db_connection)
-        db = mongo_client[db_name]
-        db['todo']
-        db['doing']
-        db['done']
+    db_connection = get_mongodb_connection()
+    mongo_client = pymongo.MongoClient(db_connection)
+    db = mongo_client[db_name]
+    db['todo']
+    db['doing']
+    db['done']
 
-        return db_name
+    return db_name
 
 def delete_test_db(db_name):
-        db_connection = get_mongodb_connection()
-        mongo_client = pymongo.MongoClient(db_connection)
-        mongo_client.drop_database(db_name)
+    db_connection = get_mongodb_connection()
+    mongo_client = pymongo.MongoClient(db_connection)
+    mongo_client.drop_database(db_name)
 
 def get_trello_credentials():
     auth_cred = []
