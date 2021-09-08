@@ -1,5 +1,6 @@
 import os 
 import requests, datetime, json
+import pymongo
 
 class TrelloCard:
     def __init__(self, id, name, idList, due_date, description, modified):
@@ -74,6 +75,36 @@ class ViewModel:
             if item.idList == self.lists['Done'] and item.modified != datetime.date.today():
                 items.append(item)
         return items
+
+def get_mongodb_connection():
+        mongodb_url = os.getenv('MONGO_URL')
+        return mongodb_url
+
+def get_mongodb_database_name():
+        mongodb_name = os.getenv('MONGO_DB_NAME')
+        return mongodb_name
+
+def mongo_db_connection():
+        db_connection = get_mongodb_connection()
+        db_name = get_mongodb_database_name()
+
+        mongo_client = pymongo.MongoClient(db_connection)
+        db = mongo_client[db_name]
+
+        return db
+
+def get_todo_cards():
+        db = mongo_db_connection()
+        collection_list = db.list_collection_names()
+
+        card_list = []
+        for coll in collection_list:
+            collection = db[coll]
+
+            for card in collection.find({}):
+                card_list.append(ToDoCard(card['_id'], card['name'], card['idList'], card['due_date'], card['description'], card['modified']))
+
+        return card_list
 
 def get_trello_credentials():
     auth_cred = []

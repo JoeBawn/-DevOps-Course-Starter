@@ -3,7 +3,7 @@ from operator import itemgetter
 import pytest, datetime
 
 from todo_app.flask_config import Config
-from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list
+from todo_app.data.trello_items import TrelloCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list, get_todo_cards
 
 def create_app():  
     app = Flask(__name__)
@@ -14,8 +14,8 @@ def create_app():
     @app.route('/')
     def index():
 
-        items = get_trello_cards()
-        lists = {'ToDo':get_trello_list_id('To Do'),'Doing':get_trello_list_id('Doing'),'Done':get_trello_list_id('Done')}
+        items = get_todo_cards()
+        lists = {'ToDo':'todo','Doing':'doing','Done':'done'}
 
         get_view_model = ViewModel(items, lists)
 
