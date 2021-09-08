@@ -126,6 +126,21 @@ def create_todo_card(new_card):
         card = new_card.get_card_as_dictionary()
         db['todo'].insert_one(card)
 
+def create_test_db(db_name):
+        db_connection = get_mongodb_connection()
+        mongo_client = pymongo.MongoClient(db_connection)
+        db = mongo_client[db_name]
+        db['todo']
+        db['doing']
+        db['done']
+
+        return db_name
+
+def delete_test_db(db_name):
+        db_connection = get_mongodb_connection()
+        mongo_client = pymongo.MongoClient(db_connection)
+        mongo_client.drop_database(db_name)
+
 def get_trello_credentials():
     auth_cred = []
     auth_cred.append(os.getenv('TRELLO_API_KEY'))
