@@ -1,30 +1,36 @@
 import os, pytest, json, datetime
 import todo_app.app
 import dotenv
-from unittest.mock import patch, Mock
-
-trello_board_id = os.getenv('TRELLO_API_BOARD_ID')
+import mongomock 
+import pymongo
 
 @pytest.fixture
 def client():
     file_path = dotenv.find_dotenv('.env.test') 
-    dotenv.load_dotenv(file_path, override=True)
-    
-    test_app = todo_app.app.create_app()
-    
-    with test_app.test_client() as client:
-        yield client
+    dotenv.load_dotenv(file_path, override=True) 
+    with mongomock.patch(servers=(('testmongo.com', 27017),)):
+        test_app = todo_app.app.create_app()  
+        with test_app.test_client() as client:
+            yield client
 
-@patch('requests.get')
-def test_index_page(mock_get_requests, client):
+def test_index_page(client):
     
-    mock_get_requests.side_effect = mock_trello_request
     response = client.get('/')
 
-    assert b'New Test' in response.data
-    assert b'sdhjfaj' in response.data
+    assert b'To Do' in response.data
+    assert b'Doing' in response.data
 
-def mock_trello_request(url):
+@mongomock.patch(servers=(('testmongo.com', 27017),))
+def test_add_item():
+    db_connection = os.getenv('MONGO_URL')
+    db_name = os.getenv('MONGO_DB_NAME')
+    connection = pymongo.MongoClient(db_connection)
+    db = connection[db_name]
+    item = {"Test1" : "Test2"}
+    collection = db['test_col']
+    collection.insert_one(item)
+
+"""def mock_trello_request(url):
     trello_board_id = os.getenv('TRELLO_API_BOARD_ID')
     if url.startswith(f'https://api.trello.com/1/boards/{trello_board_id}/lists'):
         response = Mock()
@@ -187,6 +193,6 @@ def mock_trello_request(url):
         ]
         response.json.return_value = sample_trello_lists_response
         return response
-    return None
+    return None"""
 
 
