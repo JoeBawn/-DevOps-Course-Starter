@@ -124,7 +124,7 @@ def move_todo_card(card_id, new_list_id):
                 print(result)
                 break
 
-def delete_todo_card(card_id, new_list_id):
+def delete_todo_card(card_id):
     db = mongo_db_connection()
     collections = db.list_collection_names()
 
@@ -132,10 +132,7 @@ def delete_todo_card(card_id, new_list_id):
         collection = db[col]
         for card in collection.find({}): 
             if str(card['_id']) == str(card_id):
-                new_card = ToDoCard(0, card['name'], new_list_id, card['due_date'], card['description'], datetime.datetime.today())
-                new_collection = db[new_list_id]
-                new_collection.insert_one(new_card.get_card_as_dictionary())
-                result = collection.delete_one({'_id' : card['_id']})
+                result = collection.delete_one({'_id' : card_id})
 
 def create_todo_card(new_card):
     db = mongo_db_connection()

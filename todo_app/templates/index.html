@@ -43,12 +43,12 @@
                         <td><li class="list-group-item">{{item.name}}</td>
                           <td><li class="list-group-item">{{item.description}}</td>  
                           <td><li class="list-group-item">{{item.get_user_date()}}</td>  
-                          <td id=Todo_{{ item.id }}></td> 
+                          <td id="Todo_{{ item.id }}"></td> 
                     <td><form id="move_item_{{ item.id }}" action="/Doing" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                       </form></td>
-                    <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
+                    <td><form id="complete_item_{{ item.id }}" action="/Done" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>
@@ -89,12 +89,12 @@
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
                       <td id="Doing_{{ item.id }}"></td> 
-                <td><form id="move_item_{{ item.id }}" action="/Doing" method="POST">
-                  <input type="hidden" name="move_item" value="{{ item.id }}">
+                <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                   </form></td>
-                <td><form id="complete_item_{{ item.id }}" action="/Done" method="POST">
-                  <input type="hidden" name="complete_item" value="{{ item.id }}">
+                <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                   </form></td>
                 <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">
@@ -147,12 +147,12 @@
                       <td><li class="list-group-item">{{item.description}}</td>  
                       <td><li class="list-group-item">{{item.get_user_date() }}</td>  
                       <td id="Done_{{ item.id }}"></td> 
-                <td><form id="move_item_{{ item.id }}" action="/Doing" method="POST">
-                  <input type="hidden" name="move_item" value="{{ item.id }}">
+                <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                   </form></td>
-                <td><form id="complete_item_{{ item.id }}" action="/Done" method="POST">
-                  <input type="hidden" name="complete_item" value="{{ item.id }}">
+                <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
                   <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                   </form></td>
                 <td><form id="remove_item_{{ item.id }}" action="/remove_item" method="POST">

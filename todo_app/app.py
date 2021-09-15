@@ -45,12 +45,12 @@ def create_app():
     @app.route('/remove_item', methods=['POST'])
     def remove_existing_item():
         allcards = get_todo_cards()
-        lists = {'ToDo':'todo','Doing':'doing','Done':'done'}
+        lists = {'todo':'todo','doing':'doing','done':'done'}
         
         toggle_item = request.form.get('delete_id')
 
         for card in allcards:
-            if card.id == toggle_item: 
+            if toggle_item == str(card.id):
                 delete_todo_card(card.id)
         
         return redirect(request.headers.get('Referer'))
@@ -59,36 +59,32 @@ def create_app():
     @app.route('/Doing', methods=['POST'])
     def in_progress():
         allcards = get_todo_cards()
-        lists = {'ToDo':'todo','Doing':'doing','Done':'done'}
+        lists = {'todo':'todo','doing':'doing','done':'done'}
 
-        #toggle_item = request.form.get('item_id')
+        toggle_item = request.form.get('item_id')
 
         for card in allcards:
-            if request.form.get('item_id' + str(card.id)) == str(card.id):
+            if toggle_item == str(card.id):
                 for l in lists:
-                    if l == "ToDo":
-                        doing_list_id = l
-                        move_todo_card(card.id, doing_list_id)
-            
+                    if l == "doing":
+                        desired_list_id = l
+                        move_todo_card(card.id, desired_list_id)
+        
         return redirect(request.headers.get('Referer'))
 
     @app.route('/Done', methods=['POST'])
     def Done():
-        trello_list_id = {}
-        trello_list_id['To Do'] = get_trello_list_id('To Do')
-        trello_list_id['Doing'] = get_trello_list_id('Doing')
-        trello_list_id['Done'] =get_trello_list_id('Done')
-        
-        allcards = get_trello_cards()
-        all_lists = get_trello_lists_on_board()
-        
+        allcards = get_todo_cards()
+        lists = {'todo':'todo','doing':'doing','done':'done'}
+
         toggle_item = request.form.get('item_id')
 
         for card in allcards:
-            if card.id == toggle_item:
-                new_list_id = trello_list_id['Done']
-                move_trello_card(card.id, new_list_id)
-        
+            if toggle_item == str(card.id):
+                for l in lists:
+                    if l == "done":
+                        desired_list_id = l
+                        move_todo_card(card.id, desired_list_id)
         return redirect(request.headers.get('Referer'))
 
 
