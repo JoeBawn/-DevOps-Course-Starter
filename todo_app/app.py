@@ -3,7 +3,7 @@ from operator import itemgetter
 import pytest, datetime
 
 from todo_app.flask_config import Config
-from todo_app.data.trello_items import ToDoCard, ViewModel, get_trello_credentials, get_trello_board_id, get_trello_cards, get_trello_list_id, get_trello_lists_on_board, create_trello_card, move_trello_card, delete_trello_card, get_trello_card_list, get_todo_cards, move_todo_card, create_todo_card, delete_todo_card
+from todo_app.data.todo_items import ToDoCard, ViewModel, get_todo_cards, move_todo_card, create_todo_card, delete_todo_card
 
 def create_app():  
     app = Flask(__name__)
@@ -45,7 +45,7 @@ def create_app():
     @app.route('/remove_item', methods=['POST'])
     def remove_existing_item():
         allcards = get_todo_cards()
-        lists = {'todo':'todo','doing':'doing','done':'done'}
+        lists = {'todo','doing','done'}
         
         toggle_item = request.form.get('delete_id')
 
@@ -59,7 +59,7 @@ def create_app():
     @app.route('/Doing', methods=['POST'])
     def in_progress():
         allcards = get_todo_cards()
-        lists = {'todo':'todo','doing':'doing','done':'done'}
+        lists = {'todo','doing','done'}
 
         toggle_item = request.form.get('item_id')
 
@@ -75,7 +75,7 @@ def create_app():
     @app.route('/Done', methods=['POST'])
     def Done():
         allcards = get_todo_cards()
-        lists = {'todo':'todo','doing':'doing','done':'done'}
+        lists = {'todo','doing','done'}
 
         toggle_item = request.form.get('item_id')
 

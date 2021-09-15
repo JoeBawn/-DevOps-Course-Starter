@@ -1,5 +1,5 @@
 import datetime,pytest
-from todo_app.data.trello_items import ToDoCard, ViewModel
+from todo_app.data.todo_items import ToDoCard, ViewModel
 
 @pytest.fixture
 def card_list():
