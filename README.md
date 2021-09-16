@@ -101,3 +101,5 @@ Further details of the Selenium dependency can be found here: https://pypi.org/p
 As we are using Chrome for our Selenium test there is a dependency on the webdriver - chromedriver.exe This can be downloaded from https://sites.google.com/chromium.org/driver/ ensuring you are running the correct release to your browser. 
 
 You can run the tests from the directory using poetry run pytest
+
+docker run --env-file .env todo-app:test todo_app/Selenium_Tests/test_Selenium.py
