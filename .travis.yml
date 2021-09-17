@@ -28,5 +28,5 @@ deploy:
   provider: script
   script: heroku container:release --app todoapp-jb web 
   on:
-    branch: module_9
+    branch: main
 
