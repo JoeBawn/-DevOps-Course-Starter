@@ -65,10 +65,7 @@ def create_app():
 
         for card in allcards:
             if toggle_item == str(card.id):
-                for l in lists:
-                    if l == "doing":
-                        desired_list_id = l
-                        move_todo_card(card.id, desired_list_id)
+                move_todo_card(card.id, 'doing')
         
         return redirect(request.headers.get('Referer'))
 
@@ -81,10 +78,7 @@ def create_app():
 
         for card in allcards:
             if toggle_item == str(card.id):
-                for l in lists:
-                    if l == "done":
-                        desired_list_id = l
-                        move_todo_card(card.id, desired_list_id)
+                move_todo_card(card.id, 'done')
         return redirect(request.headers.get('Referer'))
 
 
