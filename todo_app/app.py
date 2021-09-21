@@ -1,12 +1,27 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
 import pytest, datetime
+from flask_login import LoginManager
 
 from todo_app.flask_config import Config
 from todo_app.data.todo_items import ToDoCard, ViewModel, get_todo_cards, move_todo_card, create_todo_card, delete_todo_card
 
+
+login_manager = LoginManager()
+
+@login_manager.unauthorized_handler
+def unauthenticated():
+    pass # Add logic to redirect to the
+    # Github OAuth flow when unauthenticated
+
+@login_manager.user_loader
+def load_user(user_id):
+    return None
+
+
 def create_app():  
     app = Flask(__name__)
+    login_manager.init_app(app)
     
 
     # All the routes and setup code etc
