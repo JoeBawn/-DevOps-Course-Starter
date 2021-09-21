@@ -1,6 +1,6 @@
 import os, pytest, dotenv
 from threading import Thread
-from todo_app.data.trello_items import create_trello_board, delete_trello_board
+from todo_app.data.todo_items import create_test_db, delete_test_db
 from todo_app import app
 from selenium import webdriver 
 from selenium.webdriver.support.ui import Select
@@ -11,8 +11,8 @@ def app_with_temp_board():
     file_path = dotenv.find_dotenv('.env')
     dotenv.load_dotenv(file_path, override=True)
     
-    board_id = create_trello_board('Test_Board')
-    os.environ['TRELLO_API_BOARD_ID'] = board_id
+    db_name = create_test_db('test_todo_app')
+    os.environ['MONGO_DB_NAME'] = db_name
 
     application = app.create_app()
     
@@ -22,7 +22,7 @@ def app_with_temp_board():
     yield app
     
     thread.join(1)
-    delete_trello_board(board_id)
+    delete_test_db(db_name)
 
 @pytest.fixture(scope="module")
 def driver():
@@ -37,13 +37,13 @@ def test_task_journey(driver, app_with_temp_board):
     driver.get('http://127.0.0.1:5000')
     
     assert driver.title == 'To-Do App'
-    driver.find_element_by_name("new_item_title").send_keys('Test Name')
+    driver.find_element_by_name("new_item_title").send_keys('Test_New')
     driver.find_element_by_name("new_item_description").send_keys('Test Description')
     driver.find_element_by_name("new_task_submit").click()
 
-    assert driver.find_element_by_xpath("//*[starts-with(@id, 'Todo')]")
+    assert driver.find_element_by_xpath("//*[starts-with(@id, 'Todo_')]")
     driver.find_element_by_xpath("//*[starts-with(@action, '/Doing')]")
-    driver.find_element_by_xpath("//*[starts-with(@id, 'toggle_item_')]").submit()
+    driver.find_element_by_xpath("//*[starts-with(@id, 'move_item_')]").submit()
     
     assert driver.find_element_by_xpath("//*[starts-with(@id, 'Doing')]")
     driver.find_element_by_xpath("//*[starts-with(@action, '/Done')]")

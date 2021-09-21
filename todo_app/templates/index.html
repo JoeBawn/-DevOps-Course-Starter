@@ -43,12 +43,12 @@
                         <td><li class="list-group-item">{{item.name}}</td>
                           <td><li class="list-group-item">{{item.description}}</td>  
                           <td><li class="list-group-item">{{item.get_user_date()}}</td>  
-                          <td id=Todo_{{ item.id }}"></td> 
-                    <td><form id="toggle_item_{{ item.id }}" action="/Doing" method="POST">
+                          <td id="Todo_{{ item.id }}"></td> 
+                    <td><form id="move_item_{{ item.id }}" action="/Doing" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="Doing" class="btn btn-outline-primary btn-block" style="margin-top:5px">Doing</button>
                       </form></td>
-                    <td><form id="toggle_item_{{ item.id }}" action="/Done" method="POST">
+                    <td><form id="complete_item_{{ item.id }}" action="/Done" method="POST">
                       <input type="hidden" name="item_id" value="{{ item.id }}">
                       <button submit="done" class="btn btn-outline-success btn-block" style="margin-top:5px">Complete</button>
                       </form></td>

@@ -71,17 +71,23 @@ $ docker build --tag todo-app:development --target development .
 $ docker run -d -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/temp/todo_app todo-app:development
 ```
 
-## Create a Trello account and API key
+## Heroku
 
-We're going to be using Trello's API to fetch and save to-do tasks. In order to call their API, you need to first create an account - https://trello.com/signup
-Then generate an API key and token by following the instructions here - https://trello.com/app-key
-Store these credentials in the `.env` file to keep secure. 
+This To-Do app is now hosted on Heroku:
 
-## Identify Board ID and list names
+https://todoapp-jb.herokuapp.com/
 
-You will need to identify the Board ID. See the following url for details on how to find this: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-memberships-get
+## Travis CI
 
-You will also need to get the lists on the board. See the following url for details on how to find this: https://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-lists-get
+This application is now deployed using Travis CI. Travis Builds are run on pull requests and include the the below tests in the 'Testing' section which are required to pass in order to deploy the application. 
+
+## MongoDB
+
+We are now using MongoDB in place of Trello. In order to configure this application to work with MongoDB you will need to update the following variables with the .env file:
+
+MONGO_URL=[Your Connection String Here]
+MONGO_DB_NAME=[Your DB Name Here]
+
 
 ## Testing
 
@@ -101,3 +107,5 @@ Further details of the Selenium dependency can be found here: https://pypi.org/p
 As we are using Chrome for our Selenium test there is a dependency on the webdriver - chromedriver.exe This can be downloaded from https://sites.google.com/chromium.org/driver/ ensuring you are running the correct release to your browser. 
 
 You can run the tests from the directory using poetry run pytest
+
+docker run --env-file .env todo-app:test todo_app/Selenium_Tests/test_Selenium.py
