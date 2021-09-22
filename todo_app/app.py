@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
-import pytest, datetime
-from flask_login import LoginManager
+import pytest, datetime, os
+from flask_login import LoginManager, login_required
+from oauthlib.oauth2 import WebApplicationClient
 
 from todo_app.flask_config import Config
 from todo_app.data.todo_items import ToDoCard, ViewModel, get_todo_cards, move_todo_card, create_todo_card, delete_todo_card
@@ -11,8 +12,10 @@ login_manager = LoginManager()
 
 @login_manager.unauthorized_handler
 def unauthenticated():
-    pass # Add logic to redirect to the
-    # Github OAuth flow when unauthenticated
+    github_client =  WebApplicationClient(os.environ.get('CLIENTID'))
+    github_redirect = github_client.prepare_request_uri("https://github.com/login/oauth/authorize")
+
+    return redirect(github_redirect) 
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -27,6 +30,7 @@ def create_app():
     # All the routes and setup code etc
 
     @app.route('/')
+    @login_required
     def index():
 
         items = get_todo_cards()
