@@ -25,6 +25,7 @@ def load_user(user_id):
 
 def create_app():  
     app = Flask(__name__)
+    app.secret_key = os.urandom(24)
     login_manager.init_app(app)
     
 
@@ -111,13 +112,14 @@ def create_app():
         github_json = github_client.parse_request_body_response(github_access.text)
         github_user_request_param = github_client.add_token("https://api.github.com/user")
         github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
-
-        #login_user(User(github_user['id']))
+        
+        login_user(User(github_user['id']))
 
         return redirect('/') 
 
 
     if __name__ == '__main__':
         app.run()
+        
 
     return app
