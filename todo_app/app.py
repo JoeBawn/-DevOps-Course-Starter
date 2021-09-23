@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
-import pytest, datetime, os
-from flask_login import LoginManager, login_required
+import pytest, datetime, os, requests, json
+from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
+from todo_app.user import User
 
 from todo_app.flask_config import Config
 from todo_app.data.todo_items import ToDoCard, ViewModel, get_todo_cards, move_todo_card, create_todo_card, delete_todo_card
@@ -47,6 +48,7 @@ def create_app():
         return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
 
     @app.route('/new_item', methods=['POST'])
+    @login_required
     def new_item():
         new_item_title = request.form.get('new_item_title')
         default_list = 'todo'
@@ -99,6 +101,20 @@ def create_app():
             if toggle_item == str(card.id):
                 move_todo_card(card.id, 'done')
         return redirect(request.headers.get('Referer'))
+
+    @app.route('/login/')
+    def login_callback():
+        callback_code = request.args.get("code")
+        github_client =  WebApplicationClient(os.environ.get('CLIENTID'))
+        github_token = github_client.prepare_token_request("https://github.com/login/oauth/access_token", code=callback_code) 
+        github_access = requests.post(github_token[0], headers=github_token[1], data=github_token[2], auth=(os.environ.get('CLIENTID'), os.environ.get('CLIENTSECRET')))
+        github_json = github_client.parse_request_body_response(github_access.text)
+        github_user_request_param = github_client.add_token("https://api.github.com/user")
+        github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
+
+        #login_user(User(github_user['id']))
+
+        return redirect('/') 
 
 
     if __name__ == '__main__':
