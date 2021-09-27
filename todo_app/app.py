@@ -19,8 +19,9 @@ def unauthenticated():
     return redirect(github_redirect) 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return None
+def load_user(github_user):
+    
+    return User(github_user)
 
 
 def create_app():  
@@ -103,7 +104,7 @@ def create_app():
                 move_todo_card(card.id, 'done')
         return redirect(request.headers.get('Referer'))
 
-    @app.route('/login/')
+    @app.route('/login')
     def login_callback():
         callback_code = request.args.get("code")
         github_client =  WebApplicationClient(os.environ.get('CLIENTID'))
@@ -113,7 +114,7 @@ def create_app():
         github_user_request_param = github_client.add_token("https://api.github.com/user")
         github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
         
-        login_user(User(github_user['id']))
+        login_user(User(github_user))
 
         return redirect('/') 
 
