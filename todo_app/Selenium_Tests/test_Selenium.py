@@ -10,6 +10,8 @@ from selenium.webdriver.support.ui import Select
 def app_with_temp_board():
     file_path = dotenv.find_dotenv('.env')
     dotenv.load_dotenv(file_path, override=True)
+    test_login = 'True'
+    os.environ['LOGIN_DISABLED'] = test_login
     
     db_name = create_test_db('test_todo_app')
     os.environ['MONGO_DB_NAME'] = db_name

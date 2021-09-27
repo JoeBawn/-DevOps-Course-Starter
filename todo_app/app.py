@@ -27,6 +27,7 @@ def load_user(github_user):
 def create_app():  
     app = Flask(__name__)
     app.secret_key = os.urandom(24)
+    app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False')
     login_manager.init_app(app)
     
 
@@ -43,11 +44,20 @@ def create_app():
 
         todays_date = datetime.datetime.strftime(datetime.date.today(), '%d/%m/%Y')
 
-        if request.values.get('sort') == '1':
+        if hasattr('current_user', 'role'):
+            if current_user.role == 'writer':
+                return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
+            elif current_user.role == 'reader':
+                return render_template('index_read.html', View_Model=get_view_model, todays_date=todays_date)
+            else:
+                return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
+        else:
+            return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
+        """if request.values.get('sort') == '1':
             items.sort(key=lambda x: x.due_date)
         elif request.values.get('sort') == '2':
             items.sort(key=lambda x: x.due_date, reverse=True)
-        return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
+        return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)"""
 
     @app.route('/new_item', methods=['POST'])
     @login_required

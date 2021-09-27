@@ -8,6 +8,8 @@ import pymongo
 def client():
     file_path = dotenv.find_dotenv('.env.test') 
     dotenv.load_dotenv(file_path, override=True) 
+    test_login = 'True'
+    os.environ['LOGIN_DISABLED'] = test_login
     with mongomock.patch(servers=(('testmongo.com', 27017),)):
         test_app = todo_app.app.create_app()  
         with test_app.test_client() as client:
