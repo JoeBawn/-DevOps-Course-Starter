@@ -27,7 +27,7 @@ def load_user(github_user):
 def create_app():  
     app = Flask(__name__)
     app.secret_key = os.urandom(24)
-    app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False')
+    app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False').lower() in ['true', '1']
     login_manager.init_app(app)
     
 
