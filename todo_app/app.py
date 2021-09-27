@@ -66,6 +66,7 @@ def create_app():
         return redirect(request.headers.get('Referer'))
 
     @app.route('/remove_item', methods=['POST'])
+    @login_required
     def remove_existing_item():
         allcards = get_todo_cards()
         lists = {'todo','doing','done'}
@@ -80,6 +81,7 @@ def create_app():
 
 
     @app.route('/Doing', methods=['POST'])
+    @login_required
     def in_progress():
         allcards = get_todo_cards()
         lists = {'todo','doing','done'}
@@ -93,6 +95,7 @@ def create_app():
         return redirect(request.headers.get('Referer'))
 
     @app.route('/Done', methods=['POST'])
+    @login_required
     def Done():
         allcards = get_todo_cards()
         lists = {'todo','doing','done'}
