@@ -49,7 +49,7 @@ def create_app():
         elif request.values.get('sort') == '2':
             items.sort(key=lambda x: x.due_date, reverse=True)
 
-        if hasattr('current_user', 'role'):
+        if hasattr(current_user, 'role'):
             if current_user.role == 'writer':
                 return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
             elif current_user.role == 'reader':
