@@ -49,13 +49,13 @@ def create_app():
         elif request.values.get('sort') == '2':
             items.sort(key=lambda x: x.due_date, reverse=True)
 
-        if hasattr(current_user, 'role'):
+        if not app.config['LOGIN_DISABLED']:
             if current_user.role == 'writer':
                 return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
             elif current_user.role == 'reader':
                 return render_template('index_read.html', View_Model=get_view_model, todays_date=todays_date)
             else:
-                return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
+                return render_template('index_read.html', View_Model=get_view_model, todays_date=todays_date)
         else:
             return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
 
