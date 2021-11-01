@@ -1,20 +1,19 @@
-import os, pytest, dotenv
+import os, pytest, dotenv, ssl
 from threading import Thread
 from todo_app.data.todo_items import create_test_db, delete_test_db
 from todo_app import app
 from selenium import webdriver 
-from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 @pytest.fixture(scope='module')
 def app_with_temp_board():
     file_path = dotenv.find_dotenv('.env')
     dotenv.load_dotenv(file_path, override=True)
-    test_login = 'True'
-    os.environ['LOGIN_DISABLED'] = test_login
     
     db_name = create_test_db('test_todo_app')
     os.environ['MONGO_DB_NAME'] = db_name
+    os.environ['LOGIN_DISABLED'] = "True"
 
     application = app.create_app()
     
@@ -32,7 +31,7 @@ def driver():
     opts.add_argument('--headless')
     opts.add_argument('--no-sandbox')
     opts.add_argument('--disable-dev-shm-usage')
-    with webdriver.Chrome(options=opts) as driver:
+    with webdriver.Chrome(ChromeDriverManager().install()) as driver:
         yield driver
 
 def test_task_journey(driver, app_with_temp_board):

@@ -5,7 +5,7 @@ class User(UserMixin):
         self.id = user_id
     @property
     def role(self):
-        if self.id =='JoeBawn':
+        if self.id == 'JoeBawn':
             return 'writer'
         else:
             return 'reader'

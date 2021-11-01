@@ -141,13 +141,13 @@ def create_todo_card(new_card):
 
 def create_test_db(db_name):
     db_connection = get_mongodb_connection()
-    mongo_client = pymongo.MongoClient(db_connection)
+    mongo_client = pymongo.MongoClient(db_connection, ssl_cert_reqs=ssl.CERT_NONE)
     db = mongo_client[db_name]
 
     return db_name
 
 def delete_test_db(db_name):
     db_connection = get_mongodb_connection()
-    mongo_client = pymongo.MongoClient(db_connection)
+    mongo_client = pymongo.MongoClient(db_connection, ssl_cert_reqs=ssl.CERT_NONE)
     mongo_client.drop_database(db_name)
     
