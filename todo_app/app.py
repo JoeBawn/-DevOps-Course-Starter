@@ -63,30 +63,33 @@ def create_app():
     @app.route('/new_item', methods=['POST'])
     @login_required
     def new_item():
-        new_item_title = request.form.get('new_item_title')
-        default_list = 'todo'
-        if request.form.get('new_item_due'):
-            due_date = datetime.datetime.strptime(request.form.get('new_item_due'), '%Y-%m-%d')
-        else:
-            due_date = datetime.datetime.today() + datetime.timedelta(30)
-        
-        description = request.form.get('new_item_description')
-        
-        new_card = ToDoCard(0, new_item_title, default_list, due_date, description, datetime.datetime.today())
-        create_todo_card(new_card)
+        if 'LOGIN_DISABLED' in app.config or current_user.role == 'writer':
+
+            new_item_title = request.form.get('new_item_title')
+            default_list = 'todo'
+            if request.form.get('new_item_due'):
+                due_date = datetime.datetime.strptime(request.form.get('new_item_due'), '%Y-%m-%d')
+            else:
+                due_date = datetime.datetime.today() + datetime.timedelta(30)
+            
+            description = request.form.get('new_item_description')
+            
+            new_card = ToDoCard(0, new_item_title, default_list, due_date, description, datetime.datetime.today())
+            create_todo_card(new_card)
         return redirect(request.headers.get('Referer'))
 
     @app.route('/remove_item', methods=['POST'])
     @login_required
     def remove_existing_item():
-        allcards = get_todo_cards()
-        lists = {'todo','doing','done'}
-        
-        toggle_item = request.form.get('delete_id')
+        if 'LOGIN_DISABLED' in app.config or current_user.role == 'writer':
+            allcards = get_todo_cards()
+            lists = {'todo','doing','done'}
+            
+            toggle_item = request.form.get('delete_id')
 
-        for card in allcards:
-            if toggle_item == str(card.id):
-                delete_todo_card(card.id)
+            for card in allcards:
+                if toggle_item == str(card.id):
+                    delete_todo_card(card.id)
         
         return redirect(request.headers.get('Referer'))
 
@@ -94,28 +97,30 @@ def create_app():
     @app.route('/Doing', methods=['POST'])
     @login_required
     def in_progress():
-        allcards = get_todo_cards()
-        lists = {'todo','doing','done'}
+        if 'LOGIN_DISABLED' in app.config or current_user.role == 'writer':
+            allcards = get_todo_cards()
+            lists = {'todo','doing','done'}
 
-        toggle_item = request.form.get('item_id')
+            toggle_item = request.form.get('item_id')
 
-        for card in allcards:
-            if toggle_item == str(card.id):
-                move_todo_card(card.id, 'doing')
+            for card in allcards:
+                if toggle_item == str(card.id):
+                    move_todo_card(card.id, 'doing')
         
         return redirect(request.headers.get('Referer'))
 
     @app.route('/Done', methods=['POST'])
     @login_required
     def Done():
-        allcards = get_todo_cards()
-        lists = {'todo','doing','done'}
+        if 'LOGIN_DISABLED' in app.config or current_user.role == 'writer':
+            allcards = get_todo_cards()
+            lists = {'todo','doing','done'}
 
-        toggle_item = request.form.get('item_id')
+            toggle_item = request.form.get('item_id')
 
-        for card in allcards:
-            if toggle_item == str(card.id):
-                move_todo_card(card.id, 'done')
+            for card in allcards:
+                if toggle_item == str(card.id):
+                    move_todo_card(card.id, 'done')
         return redirect(request.headers.get('Referer'))
 
     @app.route('/login')
