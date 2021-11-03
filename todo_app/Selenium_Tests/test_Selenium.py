@@ -3,7 +3,7 @@ from threading import Thread
 from todo_app.data.todo_items import create_test_db, delete_test_db
 from todo_app import app
 from selenium import webdriver 
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import Select
 
 
 @pytest.fixture(scope='module')
@@ -31,7 +31,7 @@ def driver():
     opts.add_argument('--headless')
     opts.add_argument('--no-sandbox')
     opts.add_argument('--disable-dev-shm-usage')
-    with webdriver.Chrome(ChromeDriverManager().install()) as driver:
+    with webdriver.Chrome(options=opts) as driver:
         yield driver
 
 def test_task_journey(driver, app_with_temp_board):
