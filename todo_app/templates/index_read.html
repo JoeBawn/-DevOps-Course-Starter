@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App - Reader{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">JB's</h1>
+    <h2 class="display-5">To-Do App</h2>
+    <p class="lead">Just another to-do app!</p>
+  </div>
+
+  <div class="container">
+        </table>
+              </ul>
+              <h1 class="display-4">To Do</h1>
+              <table class="table">
+                <table class="table">
+                  <ul class="list-group mb-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">Task Lists</th>
+                        <th scope="col">Description</th>
+                        {% if request.values.get('sort') == None %}
+                        <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                        {% elif request.values.get('sort') == '2' %}
+                        <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                        {% elif request.values.get('sort') == '1' %}
+                        <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                        {% endif %}
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      {% for item in View_Model.items_todo %}
+                      <tr>
+                        <td><li class="list-group-item">{{item.name}}</td>
+                          <td><li class="list-group-item">{{item.description}}</td>  
+                          <td><li class="list-group-item">{{item.get_user_date()}}</td>  
+                          <td id="Todo_{{ item.id }}"></td> 
+                      </tr>
+          </li>
+                        {% endfor %}
+                          </tr>
+                    </li>
+                        </ul>
+              </table>
+            </table>
+          </ul>
+          <h1 class="display-4">Doing</h1>
+          <table class="table">
+            <table class="table">
+              <ul class="list-group mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Task Lists</th>
+                    <th scope="col">Description</th>
+                    {% if request.values.get('sort') == None %}
+                    <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                    {% elif request.values.get('sort') == '2' %}
+                    <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                    {% elif request.values.get('sort') == '1' %}
+                    <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  {% for item in View_Model.items_doing %}
+                  <tr>
+                    <td><li class="list-group-item">{{item.name}}</td>
+                      <td><li class="list-group-item">{{item.description}}</td>  
+                      <td><li class="list-group-item">{{item.get_user_date() }}</td>  
+                      <td id="Doing_{{ item.id }}"></td> 
+                  </tr>
+      </li>
+                    {% endfor %}
+                      </tr>
+                </li>
+                    </ul>
+          </table>
+        </table>
+      </ul>
+      <h1 class="display-4">Done</h1>
+      {% if View_Model.items_done|length >= 5 %}
+      <br />
+      <div><button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#doneOlder" aria-controls="doneOlder">Show/Hide Done Tasks</button></div>
+      {% endif %}
+          <table class="table">
+            <table class="table">
+              <ul class="list-group mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Task Lists</th>
+                    <th scope="col">Description</th>
+                    {% if request.values.get('sort') == None %}
+                    <th  scope="col"><a href="/?sort=2" class="table">Due Date ↕ </a></th>
+                    {% elif request.values.get('sort') == '2' %}
+                    <th scope="col"><a href="/?sort=1" class="table">Due Date ↓</a></th>
+                    {% elif request.values.get('sort') == '1' %}
+                    <th scope="col"><a href="/?sort=2" class="table">Due Date ↑</a></th>
+                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  {% for item in View_Model.items_done %}
+                  <tr>
+                    {% if View_Model.items_done|length >= 5 %}
+                    {% if item.get_modified_user_date() == todays_date %}
+                    <tr scope="row" class="collapse show" id="DoneToday">
+                    {% else %}
+                    <tr scope="row" class="collapse" id="doneOlder">
+                    {% endif %}
+                  {% else %}
+                    <tr scope="row">
+                  {% endif %}
+                    <td><li class="list-group-item">{{item.name}}</td>
+                      <td><li class="list-group-item">{{item.description}}</td>  
+                      <td><li class="list-group-item">{{item.get_user_date() }}</td>  
+                      <td id="Done_{{ item.id }}"></td> 
+                  </tr>
+      </li>
+                    {% endfor %}
+                      </tr>
+                </li>
+                    </ul>
+          </table>
+        </table>
+      </ul>
+      </table>
+          </tbody>     
+    </div>
+  </div>
+{% endblock %}

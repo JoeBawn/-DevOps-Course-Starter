@@ -109,3 +109,8 @@ As we are using Chrome for our Selenium test there is a dependency on the webdri
 You can run the tests from the directory using poetry run pytest
 
 docker run --env-file .env todo-app:test todo_app/Selenium_Tests/test_Selenium.py
+
+## OAuth 
+We are now using GitHub as the default OAuth provider for this application to manage user access. Users will now be redirected to github to sign and access the application. 
+You will need to registed your application with your chosen Auth provider and populate your .env file with the enviroment variables found in the .env.template under Github OAuth
+The return URL once your user is authentication should be https://[Insert app URL Here]/login
