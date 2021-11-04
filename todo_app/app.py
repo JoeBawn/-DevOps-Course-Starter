@@ -49,7 +49,7 @@ def create_app():
         elif request.values.get('sort') == '2':
             items.sort(key=lambda x: x.due_date, reverse=True)
 
-        if 'LOGIN_DISABLED' not in app.config:
+        if not app.config['LOGIN_DISABLED']:
             if current_user.role == 'writer':
                 return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
             else:
@@ -131,7 +131,7 @@ def create_app():
         github_user_request_param = github_client.add_token("https://api.github.com/user")
         github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
         
-        login_user(User(github_user))
+        login_user(User(github_user['login']))
 
         return redirect('/') 
 
