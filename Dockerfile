@@ -11,7 +11,7 @@ COPY ./entrypoint.sh /app
 ENV PORT=5000
 EXPOSE $PORT
 RUN chmod +x ./entrypoint.sh
-ENTRYPOINT ./entrypoint.sh
+ENTRYPOINT ["sh","./entrypoint.sh"]
 
 FROM base as development
 EXPOSE 5000
