@@ -6,11 +6,8 @@ COPY ./pyproject.toml /app
 RUN pip install poetry && poetry config virtualenvs.create false --local && poetry install
 
 FROM base as production
-RUN apt-get update && \
-    apt-get install -y gunicorn
 COPY ./todo_app /app/todo_app
 COPY ./entrypoint.sh /app
-WORKDIR /app
 ENV PORT=5000
 EXPOSE $PORT
 RUN chmod +x ./entrypoint.sh
