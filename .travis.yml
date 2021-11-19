@@ -32,5 +32,5 @@ deploy:
   provider: script
   script: heroku container:release web --app todoapp-jb && chmod a+rwx ./webhook.sh && bash ./webhook.sh
   on:
-    branch: module_11
+    branch: main
 
