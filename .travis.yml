@@ -30,7 +30,7 @@ before_deploy:
   
 deploy:
   provider: script
-  script: heroku container:release web --app todoapp-jb && chmod a+rwx ./webhook.sh && bash ./webhook.sh
+  script: bash ./webhook.sh
   on:
-    branch: main
+    branch: module_11
 
