@@ -8,10 +8,11 @@ RUN pip install poetry && poetry config virtualenvs.create false --local && poet
 FROM base as production
 COPY ./todo_app /app/todo_app
 COPY ./entrypoint.sh /app
+WORKDIR /app
 ENV PORT=5000
 EXPOSE $PORT
 RUN chmod +x ./entrypoint.sh
-ENTRYPOINT ./entrypoint.sh
+ENTRYPOINT ["sh","./entrypoint.sh"]
 
 FROM base as development
 EXPOSE 5000
