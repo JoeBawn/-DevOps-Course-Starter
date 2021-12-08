@@ -16,7 +16,7 @@ env:
   - secure: "l/mvNwWkYbYLJnCKGCjl7iUEerY63Cn7hjjslz1ahfGWSKdkVqm7cW0/zLvJ5c2H0Lak99Hyv35smkZYmH7mmRs0phlMQjC9fxzjZ7Vd8TZzMFbmKoxfUd8pzDgmffc9aOOY2Akw/vxKR2rzcGt7JL/bW/9HF+8pxwsYj22RtHsLQ2TD1DykZXORwUWyBMdtuFmPeWNQvIfDRrrh/+dbKk+2GymTMVUDn6AMdCnNKUCRfT6EjNTXZZxjyozJKe7u4jSuY0jPtCLZuRBKDfrknG+aju2gr0iQKNA1+dirmjSC76DZ5QCLlF1QVFUktJVPceLi0/0cdf0xHTRi6VgOxkyLXvvfw92ujpha64cg/Twgx2Z2I7bNeEbrcytSTa01VtwaeatvDjdqVjY5TCXe6fg2r//gAbJlrBZ9Puzo0UTemIM2/3aqWFpB2ZBYaOHKenFeHknoBJjToiV2ycEoRzbbkGs5DmmdIpLlIUxOMp2RXyF/c7IcqZq6QDE9tsY+fkyt2cm5fqHBfvqi8NYqCho9PS5u7P/h0ohzmq3Urmp5FHXJfq5RGuIUnqSV/YCU6I1DG29dOIQ3GSC+zHYBw6AsVkg9kvkHydEWpRAUZBUbe/EeEW3Y/R6+V2NZU6+NQuH4+d6Xl5h2mE062R/MOR86w9vA7gdCtWCp7YQBeZM="
   - secure: "ZryKyWiHvMM6BfaMByVDGJ+P56XGWj24wqCxvbpvmyuWEa3g37wCbqB6F0xAzFDg2rNk8ws9cPBADPG9mnPHFOKNymZF/fhonjWHlXpEF6mf1WbARIbpBe4sdGsNn8uPGCBDhdh+PtDhz5vr1YN2n8rpDOPLUwAiit7BN8sDN52sAXfqwmJ9fuuCYoYR60p71Qf61ZP5m0uHvf5u6RSLIe5skPZREsjtA3Dr+jBtD/vkNZc6Uv5+sAS7EECb03xx8+IwlNcjZuDAmhEadgLDr74gnOTfW1TVfZUd6pS9rt5AZsFlbLcsc8PQy7T5N7jTn5cK1DXe19KKKYeL1SJHhhD70v36ZgDs5G7EdujRepviM6BFqUhj2zNSJFtV0GPcBnTwaZ85dkQzo4h61gLN1JxEuBGiOvysGE1z/F48AVapkwwkGe/WepoZm7BLZOV47QNy5GBPWN/AjM/AZEsbALXEsPEEpldRxhoG6jlAvsIFqNr+3rGxoYmMF8QlS5DP0X777CItG2bnozKvFiau7+w3+X7MLtIUUlXbcP+/NMjEDkAnJADlBw2o6bop8DhJcqML+9I8sT/mGQQ/P9xTFwuqVq9RTnDAWLQU1Ffj97YnFwFPQE+oq6HLZ45fhiYvK2NV+Rdyabm7/kRw9tHA5gpl8kqiRfIezuOdt1UHCDU="
   - secure: "EkfjmgngN6vA30m+udRNaV/Y9wckNVzY1YnElVlmsZgmlKc+MktIbSMFE/Onvpc9Xx718lg+bdg3SarrVZp3VlIh3BJ0wevuQC1cjznJkYHQ1vLiE8XHWy6D3sHJIODk5ViFDXEF1p5Jgf/HtUwzwP5wQd9MpwJiQ8iky+/iOo5Hx1V84etXvIJw6cWTtyH1blnSLUvTnlgZ69mBkxoXmvUSPlWrIFq0hM2W0qj8a2ibHvM1zs3mwmnIRlRvGgFyqLhXNnOzi33RuP25Dc8JkGpChph252RVFhm5H3nXbmHI3cw697dEdVFXrWHGB+3jwuV7X5SHJfpyu8LuDETJaZco2+m0xIvWiXffneI8CpSXqsTECdd1E2zUJMtZwIfA89/Xc/SGLvyT9ujI40FglQ63tSSZYwjHfnwQY8q1oMvTsOsEWOS8t58ypk4BqrYk522T7IAPccvodrOp2xW3BALPxexLray0fWV73YVZZpCVBllff68x3x8ZulNhjrUDB8ZHseFyiraG7z3ZBLMpnfSE8INqCagSUqcBvnWR6w+xvx2L1nDjx4FXtHuhv9M0w21HwGL0dHoMyWOMPezxTy/GY4PXko8izrgBIrdXNFo20ODaxRRmAfl4oCHUnsiVJ4RgbPGWZ8hLDzc9kBa7zgSTBvpKmDZdl/uQoWRBB/0="  
-  - TF_VERSION "1.0.9"
+  - TF_VERSION="1.0.9"
 
 script:
 - docker build --tag todo-app:test --target test .
@@ -35,7 +35,7 @@ before_deploy:
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
 - docker build --tag $DOCKER_USER/todo-app:latest --target production .
 - docker push $DOCKER_USER/todo-app:latest
-- terraform apply -auto-approve -var "prefix=jb-prod"
+- terraform apply -auto-approve
 - export WEBHOOK_URL="$(terraform output -raw cd_webhook"
 deploy:
   provider: script
