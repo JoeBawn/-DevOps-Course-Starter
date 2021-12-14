@@ -35,7 +35,7 @@ before_deploy:
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
 - docker build --tag $DOCKER_USER/todo-app:latest --target production .
 - docker push $DOCKER_USER/todo-app:latest
-- terraform apply -auto-approve
+- terraform apply -var CLIENTID=$CLIENTID -var CLIENTSECRET=$CLIENTSECRET -var SECRET_KEY=$SECRET_KEY -auto-approve
 - export WEBHOOK_URL="$(terraform output -raw cd_webhook"
 deploy:
   provider: script
