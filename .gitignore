@@ -125,7 +125,6 @@ env/
 
 ### Terraform ###
 .terraform
-.terraform.lock.hcl
 .terraform.tfstate.backup
 .terraform.tfstate.lock.info
 terraform.tfvars
