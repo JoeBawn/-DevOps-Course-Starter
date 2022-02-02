@@ -4,6 +4,7 @@ import pytest, datetime, os, requests, json, logging
 from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 from loggly.handlers import HTTPSHandler
+from logging import Formatter
 from todo_app.user import User
 
 from todo_app.flask_config import Config
