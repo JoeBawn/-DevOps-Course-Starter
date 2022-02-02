@@ -28,6 +28,8 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False').lower() in ['true', '1']
+    app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
+    app.logger.setLevel(app.config['LOG_LEVEL'])
     login_manager.init_app(app)
     
 
