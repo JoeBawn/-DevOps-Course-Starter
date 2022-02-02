@@ -30,8 +30,15 @@ def create_app():
     app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False').lower() in ['true', '1']
     app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
     app.logger.setLevel(app.config['LOG_LEVEL'])
+    app.config['LOGGLY_TOKEN'] = os.environ.get('LOGGLY_TOKEN')
     login_manager.init_app(app)
-    
+
+    if app.config['LOGGLY_TOKEN'] is not None:
+        handler = HTTPSHandler(f'https://jbtodoapp.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+        handler.setFormatter(
+            Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
+        )
+        app.logger.addHandler(handler)    
 
     # All the routes and setup code etc
 
