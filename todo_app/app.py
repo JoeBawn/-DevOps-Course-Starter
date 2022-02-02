@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
-import pytest, datetime, os, requests, json
+import pytest, datetime, os, requests, json, logging
 from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 from todo_app.user import User
@@ -51,8 +51,10 @@ def create_app():
 
         if not app.config['LOGIN_DISABLED']:
             if current_user.role == 'writer':
+                app.logger.info("User with role Writer logged in")
                 return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
             else:
+                app.logger.info("User with role Reader logged in")
                 return render_template('index_read.html', View_Model=get_view_model, todays_date=todays_date)
         else:
             return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
@@ -88,6 +90,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     delete_todo_card(card.id)
+                    app.logger.info("Card %s has been deleted", card.id)
         
         return redirect(request.headers.get('Referer'))
 
@@ -104,6 +107,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     move_todo_card(card.id, 'doing')
+                    app.logger.info("Card %s moved to list %s", card.id, 'doing')
         
         return redirect(request.headers.get('Referer'))
 
@@ -119,6 +123,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     move_todo_card(card.id, 'done')
+                    app.logger.info("Card %s moved to list %s", card.id, 'done')
         return redirect(request.headers.get('Referer'))
 
     @app.route('/login')
@@ -132,7 +137,7 @@ def create_app():
         github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
         
         login_user(User(github_user['login']))
-
+        app.logger.info("Github User %s successfully logged in", github_user['login'])
         return redirect('/') 
 
 
