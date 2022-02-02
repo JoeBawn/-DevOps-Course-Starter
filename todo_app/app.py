@@ -36,7 +36,7 @@ def create_app():
     login_manager.init_app(app)
 
     if app.config['LOGGLY_TOKEN'] is not None:
-        handler = HTTPSHandler(f'https://jbtodoapp.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+        handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
         handler.setFormatter(
             Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
         )
