@@ -18,3 +18,7 @@ variable "CLIENTSECRET" {
   description = "Github OAuth Secret"
   sensitive   = true
 }
+variable "LOGGLY_TOKEN" {
+  description = "Loggly Token"
+  sensitive   = true
+}

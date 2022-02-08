@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect
 from operator import itemgetter
-import pytest, datetime, os, requests, json
+import pytest, datetime, os, requests, json, logging
 from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
+from loggly.handlers import HTTPSHandler
+from logging import Formatter
 from todo_app.user import User
 
 from todo_app.flask_config import Config
@@ -28,8 +30,17 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = os.getenv('SECRET_KEY')
     app.config['LOGIN_DISABLED'] = os.environ.get('LOGIN_DISABLED', 'False').lower() in ['true', '1']
+    app.config['LOG_LEVEL'] = os.environ.get('LOG_LEVEL', 'INFO')
+    app.logger.setLevel(app.config['LOG_LEVEL'])
+    app.config['LOGGLY_TOKEN'] = os.environ.get('LOGGLY_TOKEN')
     login_manager.init_app(app)
-    
+
+    if app.config['LOGGLY_TOKEN'] is not None:
+        handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+        handler.setFormatter(
+            Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
+        )
+        app.logger.addHandler(handler)    
 
     # All the routes and setup code etc
 
@@ -51,8 +62,10 @@ def create_app():
 
         if not app.config['LOGIN_DISABLED']:
             if current_user.role == 'writer':
+                app.logger.info("User with role Writer logged in")
                 return render_template("index.html",View_Model=get_view_model, todays_date=todays_date)
             else:
+                app.logger.info("User with role Reader logged in")
                 return render_template('index_read.html', View_Model=get_view_model, todays_date=todays_date)
         else:
             return render_template('index.html', View_Model=get_view_model, todays_date=todays_date)
@@ -88,6 +101,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     delete_todo_card(card.id)
+                    app.logger.info("Card %s has been deleted", card.id)
         
         return redirect(request.headers.get('Referer'))
 
@@ -104,6 +118,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     move_todo_card(card.id, 'doing')
+                    app.logger.info("Card %s moved to list %s", card.id, 'doing')
         
         return redirect(request.headers.get('Referer'))
 
@@ -119,6 +134,7 @@ def create_app():
             for card in allcards:
                 if toggle_item == str(card.id):
                     move_todo_card(card.id, 'done')
+                    app.logger.info("Card %s moved to list %s", card.id, 'done')
         return redirect(request.headers.get('Referer'))
 
     @app.route('/login')
@@ -132,7 +148,7 @@ def create_app():
         github_user = requests.get(github_user_request_param[0], headers=github_user_request_param[1]).json()
         
         login_user(User(github_user['login']))
-
+        app.logger.info("Github User %s successfully logged in", github_user['login'])
         return redirect('/') 
 
 

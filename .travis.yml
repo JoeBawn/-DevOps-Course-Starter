@@ -16,13 +16,16 @@ env:
   - secure: "a0WEJMbtw/+nv7yvE7JBYyD+74TpJAsBU6CVbXzIBWsB3GWZKe5ZHmqFHaaftambHAz1OjPG0DCUghHRzdp0GVn3cznPbPI86ezQ/EbkctKlRQa+ZChULvTGgyinxWQoxrSVYgjfIZ09ZDhaWFqqK1ww+Z6ICCzvZA1c5YhmuxNoLTZoCmmHK81YVIkHnmE91bCnUW4Mr+BhE/sCn82uRf1d50AagvDn7AvAvtlnemD6GJvpdIH1W5sgaxrnyEnmWuAiX2Gur4lqwMtDpF846AgX/1Lf3tcfizh5pAq2ldOvXLDUQeOvY1YFrIlg5r69pYjibAsPNPnlaOVZNMlbh4ua4GfP8dVrRU4HpNczjwLFJi5mFMh8Uva/HwlO6HBHLYrekLH4iTofVOom2+uNqRbC2q7WzbKoNuTvwH3TXuDa6lIiYszwlTY62a3dIT1Je9YRZJbXa6sIfgSGa860WA8pa9DzFp5cqs8A/4SpbAgWxu/6QVhSXBIBuPp3sbTE+gsf+EVvKaSi7sVT16nj/H3kEwp6aicOzdhkXjm5/n5Wcq1DaTrx7g/xmTycVp364l4QDLIKpEnVRwOChYyaGIjaW8BXwYqMPU9dYm87EoP5OvTJIzbt+2v3IZgVv27oFU0W6PRnUiSuWNtmSLWqQM+wMHz0FfkRPsL2iJX0Chg="
   - secure: "ncsLUkoVDyeDo1dRu/2jP7/C0biZvDJzar6LocczMIpYQCiW39QYQisht+4ny/Cu5/I7fcj6ULWyi2B5KrREWzpq1IxYg1GGk1aOKVePIRz9M29otDZpQYKUaab8xnwPyUgQBYaJ5b+tQ0p7TeYcEQ+X75HF7N/dtHzaFEPRDKKCCEUkxAsgz4PXVCjJJ3TPMBICUZT+g/Z3oNA/nAwj1myyeBCcOdBPYl6lJIZuQB8WKj4OFCoYM8WN5UsxJKFTBZFSqbKeCnRWgr81IpCdQvuuXH2CMkcjprwnr+QNI1HgXX6pVgeTpTMIP2/WOTOgF5qx1pQUa2aDRZ3AdRQSUvmyS0DqI00TyulJWOAcDXDN/vPp4FhybV6/ROXUvre3mR7oOVQWyzPvJr5e9lXUaj14mO/xwMElbyaNJOYGtA7sxlVvSY+4eJXdAm0WktKNQ3NoCGobxNUKReYPP7p0rtE9dFD9kztZlovXmpEvmlPyZYxUkZxwtoiKwU19dzupL8H2OIC0sVTrqpp37tzK01SEQ/V4Ef0zEsp1DbxRGhugYoQhhfbu2MBcMTfht+0HSvfkUZf6KN+x29baO956Dkmc1GOQZ4/zhHYPirLK/KsRxU2WuN8ksFRA5K128FxP4WolWlyl8XBshJQhh5wDVl8f5Dq15xaqR7oLyl3zM+g="
   - secure: "UB21RbmicswGFAy73IlmFSRa6Y9rzuXg68nTvuwQPjHRhjWPXhfoLnMOc5t5gOEqQ/dXx104YNi3axl31VSOyPWThJhIyJl21NxClKE2kDOsntRo3aKe8YLGHgjG31RWDZA2RuZej/4JYfcswaR+ukjuR2nis7WUtppC6Sm6e5nb5QgPz0JjINpm4ItPLlBSOLjatt8C0ySG3tiPa7jvA3Baw5zVAn3wg2+90aPoTJht/pmtMQrFoizoN1xHg8KTIXeB3ScOG3NEW2F0spYOgeTHDVF1gATNvCcUfuZyFOBGbFDkhzIMIe1ih8NPqv3KuksmLtr6wvQHfzY3nnCOhP3kOpAgKazdi3fLT5MxGZPauByTIO1xJ4b/nVkEZ1TRjgsI0wwRpZwvO2weKD7kkYAKErao/8E6yfHiJ09NLe+1vcxC7l1dfMACwZjoKs3ZnxAoWiSyl2Le8R36hEuDoqRQXVtLpax/xcYqaueJGNDnOmmx3E6X5dVwf2tLIQ1uFMThq1hBwibFn6mHC6QBRwhvIItxQ5l4Sx8+tJCbKnwF6M9tf6xNvSgO83wLwbgVq/E5Ty9geYUNoAeZJSPrCz0DXNHaOK2e66jj0XBYzKhZRD/yKSs0d2Eh5RUTFMRzxOMEQZRA8z6G9PkTlWh8VooWb3+RwovC6NFGJKjDeo0="
+  - secure: "W0svchvoLb09vnloGGCB4nPUeHUs+xwfIQsT4NcTuQURIYPNuwlgb1ujNRZYibCz07RApClKTGzkQrPJxAXhxgW5hPCpz5xc1b06c+UDfM43fXn9OYO/e9V3RBhEB1my58K+TyBLPUoPhgfFKXKb4K58XW6sqtHQxSI6IV+sET/UO1fxJDlzRBiuLrY7ImQLoEsgfZI+6KkRgiYF7qoNnUuLCriyw1X+2sFlaQ+6I90ECMEGi6He6KZkyyxGgenC2h2cPiAWaxu3Wpd9Ww0/QYXEFtoW7vSRiSj8ZcLBXaGWPap0x9zBY2HlZpB6DegyhKxPZsJzIzofMS1V2yrsaeebwaUeU9dflMU6xCiecKhwyENCKWMfb/rDXbrvXYZB6Q46FByAQ9ibjmJzt7GzKJXYHjGmWyhBRS4Y5CDqqtUZd8sOVfNZX5aOdheobtdXFvetPsBvsxIpSZHquadBH9wYde8EvBzcJ+S018DTmSeA4g8C4/Rne4zzznyN2w6zWR5UO8Vwa2Y4tJFn1lxweXhtO9kA02InX1PrA22eZmvwpwX35uayjnX8Qe5xWOML7nL9aEKOJJyU2qgd9LKBHeNhE5Wt+hMvvif+hoKkwet1hdeKNs3mmRowVQ7jpsNuegyA7Z1CJG2HglsaCA4c1wvKWm8RTCNZk6/ozpNYud8="
   - TF_VERSION="1.0.9"
+  - LOG_LEVEL="INFO"
 
 script:
 - docker build --tag todo-app:test --target test .
 - docker run todo-app:test todo_app/Tests/test_items.py
 - docker run --env-file .env.test todo-app:test todo_app/Tests/test_app.py
 - docker run --env MONGO_URL todo-app:test todo_app/Selenium_Tests/test_Selenium.py
+- docker run --env MONGO_URL --env LOGGLY_TOKEN todo-app:test todo_app/Selenium_Tests/test_Selenium.py
 
 install:
 - wget https://releases.hashicorp.com/terraform/"$TF_VERSION"/terraform_"$TF_VERSION"_linux_amd64.zip
@@ -35,11 +38,11 @@ before_deploy:
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
 - docker build --tag $DOCKER_USER/todo-app:latest --target production .
 - docker push $DOCKER_USER/todo-app:latest
-- terraform apply -var CLIENTID=$CLIENTID -var CLIENTSECRET=$CLIENTSECRET -var SECRET_KEY=$SECRET_KEY -auto-approve
+- terraform apply -var CLIENTID=$CLIENTID -var CLIENTSECRET=$CLIENTSECRET -var SECRET_KEY=$SECRET_KEY -var LOGGLY_TOKEN=$LOGGLY_TOKEN -auto-approve
 - export WEBHOOK_URL="$(terraform output -raw cd_webhook)"
 deploy:
   provider: script
   script: bash ./webhook.sh
   on:
-    branch: module_12
+    branch: module_13
 
